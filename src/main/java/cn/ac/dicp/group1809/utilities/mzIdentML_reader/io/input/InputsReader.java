@@ -62,7 +62,7 @@ public class InputsReader {
 		}
 		inputs.setSourceFile(sourceFiles);
 		inputs.setSearchDatabase(searchDatabases);
-		inputs.setSpectraDat(spectraData);
+		inputs.setSpectraData(spectraData);
 		return inputs;
 	}
 }

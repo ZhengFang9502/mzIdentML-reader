@@ -18,7 +18,7 @@ public class Inputs {
 	@XmlElement(name = "SearchDatabase")
 	private List<SearchDatabase> searchDatabase;
 	@XmlElement(name = "SpectraData")
-	private List<SpectraData> spectraDat;
+	private List<SpectraData> spectraData;
 
 	public List<SourceFile> getSourceFile() {
 		return sourceFile;
@@ -36,11 +36,11 @@ public class Inputs {
 		this.searchDatabase = searchDatabase;
 	}
 
-	public List<SpectraData> getSpectraDat() {
-		return spectraDat;
+	public List<SpectraData> getSpectraData() {
+		return spectraData;
 	}
 
-	public void setSpectraDat(List<SpectraData> spectraDat) {
-		this.spectraDat = spectraDat;
+	public void setSpectraData(List<SpectraData> spectraData) {
+		this.spectraData = spectraData;
 	}
 }
