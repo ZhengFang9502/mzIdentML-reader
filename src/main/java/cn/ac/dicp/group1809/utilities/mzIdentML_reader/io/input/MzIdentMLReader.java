@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.System.out;
-
 /**
  * @author ZhengFang 2018/9/20
  * @since V1.0
@@ -146,25 +144,5 @@ public class MzIdentMLReader {
 		}
 		mzIdentML.setBibliographicReference(bibliographicReferences);
 		return mzIdentML;
-	}
-
-	public static void main(String[] args) throws FileNotFoundException, XMLStreamException {
-		MzIdentMLReader reader = MzIdentMLReader.getInstance();
-		String path = "D:\\Data\\N-Glyco\\Mzml\\msgf\\20151226_mouseliver_deglycopeptide_stepCE_1.mzid";
-		MzIdentML mzIdentML = reader.read(path);
-		AnalysisProtocolCollection analysisProtocolCollection = mzIdentML.getAnalysisProtocolCollection();
-		for (SpectrumIdentificationProtocol protocol : analysisProtocolCollection.getSpectrumIdentificationProtocol()) {
-			List<Enzyme> enzymeList = protocol.getEnzymes().getEnzyme();
-			for (Enzyme enzyme : enzymeList) {
-				List<ParamGroup> paramGroupList = enzyme.getEnzymeName().getParamGroupList();
-				for (ParamGroup paramGroup : paramGroupList) {
-					if (paramGroup instanceof CVParam) {
-						CVParam cvParam = (CVParam) paramGroup;
-						out.println(cvParam.getName());
-					}
-				}
-			}
-
-		}
 	}
 }
