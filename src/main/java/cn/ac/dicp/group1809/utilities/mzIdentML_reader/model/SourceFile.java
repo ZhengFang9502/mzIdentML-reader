@@ -19,13 +19,13 @@ public class SourceFile extends ExternalData {
 	/**
 	 * Any additional parameters description the source file.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 }

@@ -29,14 +29,12 @@ public class CVListReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cv":
-							CV cv = CVReader.read(reader);
-							cvs.add(cv);
-							break;
-						default:
-							logger.error("Invalid local name in CVList section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in CVList section: " + localName);
+					if ("cv".equals(localName)) {
+						CV cv = CVReader.read(reader);
+						cvs.add(cv);
+					} else {
+						logger.error("Invalid local name in CVList section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in CVList section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

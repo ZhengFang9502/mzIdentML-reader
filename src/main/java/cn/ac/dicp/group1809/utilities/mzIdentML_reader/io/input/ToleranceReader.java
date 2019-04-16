@@ -29,14 +29,12 @@ public class ToleranceReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							cvParams.add(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in Tolerance section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in Tolerance section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						cvParams.add(cvParam);
+					} else {
+						logger.error("Invalid local name in Tolerance section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in Tolerance section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

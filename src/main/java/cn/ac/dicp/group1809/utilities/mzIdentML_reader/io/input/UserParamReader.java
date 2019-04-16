@@ -16,10 +16,8 @@ public class UserParamReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "type":
-					userParam.setType(attributeValue);
-					break;
+			if ("type".equals(attributeName)) {
+				userParam.setType(attributeValue);
 			}
 		}
 		return userParam;

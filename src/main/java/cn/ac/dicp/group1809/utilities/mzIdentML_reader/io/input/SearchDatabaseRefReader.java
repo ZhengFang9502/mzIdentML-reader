@@ -20,13 +20,11 @@ public class SearchDatabaseRefReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "searchDatabase_ref":
-					searchDatabaseRef.setSearchDatabase_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in SearchDatabaseRef section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in SearchDatabaseRef section: " + attributeName);
+			if ("searchDatabase_ref".equals(attributeName)) {
+				searchDatabaseRef.setSearchDatabase_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in SearchDatabaseRef section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in SearchDatabaseRef section: " + attributeName);
 			}
 		}
 		return searchDatabaseRef;

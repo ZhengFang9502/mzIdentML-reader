@@ -24,13 +24,11 @@ public class ContactRoleReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "contact_ref":
-					contactRole.setContact_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in ContactRole section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in ContactRole section: " + attributeName);
+			if ("contact_ref".equals(attributeName)) {
+				contactRole.setContact_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in ContactRole section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in ContactRole section: " + attributeName);
 			}
 		}
 
@@ -41,14 +39,12 @@ public class ContactRoleReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "Role":
-							Role role = RoleReader.read(reader);
-							contactRole.setRole(role);
-							break;
-						default:
-							logger.error("Invalid local name in ContactRole section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in ContactRole section: " + localName);
+					if ("Role".equals(localName)) {
+						Role role = RoleReader.read(reader);
+						contactRole.setRole(role);
+					} else {
+						logger.error("Invalid local name in ContactRole section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in ContactRole section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

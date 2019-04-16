@@ -29,14 +29,12 @@ public class DatabaseFiltersReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "Filter":
-							Filter filter = FilterReader.read(reader);
-							filters.add(filter);
-							break;
-						default:
-							logger.error("Invalid local name in DatabaseFilters section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in DatabaseFilters section: " + localName);
+					if ("Filter".equals(localName)) {
+						Filter filter = FilterReader.read(reader);
+						filters.add(filter);
+					} else {
+						logger.error("Invalid local name in DatabaseFilters section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in DatabaseFilters section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

@@ -19,13 +19,11 @@ public class ParentOrganizationReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "organization_ref":
-					parentOrganization.setOrganization_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in ParentOrganization section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in ParentOrganization section: " + attributeName);
+			if ("organization_ref".equals(attributeName)) {
+				parentOrganization.setOrganization_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in ParentOrganization section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in ParentOrganization section: " + attributeName);
 			}
 		}
 		return parentOrganization;

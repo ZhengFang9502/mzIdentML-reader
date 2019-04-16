@@ -1,7 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.DBSequence;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParamGroup;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class DBSequenceReader {
 	public static DBSequence read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		DBSequence dbSequence = new DBSequence();
-		List<ParamGroup> paramGroupList = new ArrayList<>();
+		List<AbstractParam> paramGroupList = new ArrayList<>();
 		IdentifiableReader.read(reader, dbSequence);
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
@@ -59,11 +59,11 @@ public class DBSequenceReader {
 							dbSequence.setSeq(seq);
 							break;
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroupList.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroupList.add(userParam);
 							break;
 						default:

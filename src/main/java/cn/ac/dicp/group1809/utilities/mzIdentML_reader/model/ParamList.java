@@ -16,13 +16,13 @@ import java.util.List;
 		"paramGroupList"
 })
 public class ParamList {
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 }

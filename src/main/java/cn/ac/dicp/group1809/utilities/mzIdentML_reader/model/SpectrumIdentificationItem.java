@@ -33,7 +33,7 @@ public class SpectrumIdentificationItem extends Identifiable {
 	/**
 	 * Scores or attributes associated with the SpectrumIdentificationItem e.g. e-value, p-value, score.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * The charge state of the identified peptide.
 	 */
@@ -100,11 +100,11 @@ public class SpectrumIdentificationItem extends Identifiable {
 		this.fragmentation = fragmentation;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

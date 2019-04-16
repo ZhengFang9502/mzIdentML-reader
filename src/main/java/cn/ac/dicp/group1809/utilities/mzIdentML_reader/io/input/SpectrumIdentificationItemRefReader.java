@@ -20,13 +20,11 @@ public class SpectrumIdentificationItemRefReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "spectrumIdentificationItem_ref":
-					spectrumIdentificationItemRef.setSpectrumIdentificationItem_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
+			if ("spectrumIdentificationItem_ref".equals(attributeName)) {
+				spectrumIdentificationItemRef.setSpectrumIdentificationItem_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
 			}
 		}
 		return spectrumIdentificationItemRef;

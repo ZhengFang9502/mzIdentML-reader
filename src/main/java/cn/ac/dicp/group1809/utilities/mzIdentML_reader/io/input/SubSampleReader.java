@@ -19,13 +19,11 @@ public class SubSampleReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "sample_ref":
-					subSample.setSample_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in SubSample section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in SubSample section: " + attributeName);
+			if ("sample_ref".equals(attributeName)) {
+				subSample.setSample_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in SubSample section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in SubSample section: " + attributeName);
 			}
 		}
 		return subSample;

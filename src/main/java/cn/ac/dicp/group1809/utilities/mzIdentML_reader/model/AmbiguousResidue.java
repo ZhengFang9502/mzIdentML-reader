@@ -21,18 +21,18 @@ public class AmbiguousResidue {
 	/**
 	 * Parameters for capturing e.g. "alternate single letter codes"
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * The single letter code of the ambiguous residue e.g. X.
 	 */
 	@XmlAttribute(name = "code", required = true)
 	private String code;
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 
@@ -41,7 +41,7 @@ public class AmbiguousResidue {
 	}
 
 	public void setCode(String code) {
-		if (!code.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]")) {
+		if (!code.matches("[A-Z]")) {
 			throw new IllegalArgumentException("Invalid code: " + code);
 		}
 		this.code = code;

@@ -33,7 +33,7 @@ public class PeptideEvidence extends Identifiable {
 	/**
 	 * Additional parameters or descriptors for the PeptideEvidence.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * A reference to the protein sequence in which the specified peptide has been linked.
 	 */
@@ -86,11 +86,11 @@ public class PeptideEvidence extends Identifiable {
 	@XmlAttribute
 	private boolean isDecoy;
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 
@@ -131,7 +131,7 @@ public class PeptideEvidence extends Identifiable {
 	}
 
 	public void setPre(String pre) {
-		if (pre.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ?\\-]")) {
+		if (pre.matches("[A-Z|\\-]")) {
 			this.pre = pre;
 		} else {
 			throw new IllegalArgumentException("Invalid pre amino acid: " + pre);
@@ -143,7 +143,7 @@ public class PeptideEvidence extends Identifiable {
 	}
 
 	public void setPost(String post) {
-		if (post.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ?\\-]")) {
+		if (post.matches("[A-Z|\\-]")) {
 			this.post = post;
 		} else {
 			throw new IllegalArgumentException("Invalid post amino acid: " + post);

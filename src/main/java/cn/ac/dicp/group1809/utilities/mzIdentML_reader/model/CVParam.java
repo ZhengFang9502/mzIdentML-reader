@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 		"cvRef",
 		"accession"
 })
-public class CVParam extends AbstractParam implements ParamGroup{
+public class CVParam extends AbstractParam {
 	/**
 	 * A reference to the cv element from which this term originates.
 	 */

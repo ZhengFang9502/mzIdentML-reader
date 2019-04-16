@@ -19,13 +19,11 @@ public class InputSpectraReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "spectraData_ref":
-					inputSpectra.setSpectraData_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in InputSpectra section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in InputSpectra section: " + attributeName);
+			if ("spectraData_ref".equals(attributeName)) {
+				inputSpectra.setSpectraData_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in InputSpectra section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in InputSpectra section: " + attributeName);
 			}
 		}
 		return inputSpectra;

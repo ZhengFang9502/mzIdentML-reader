@@ -19,13 +19,11 @@ public class PeptideEvidenceRefReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "peptideEvidence_ref":
-					peptideEvidence.setPeptideEvidence_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in PeptideEvidenceRef section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in PeptideEvidenceRef section: " + attributeName);
+			if ("peptideEvidence_ref".equals(attributeName)) {
+				peptideEvidence.setPeptideEvidence_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in PeptideEvidenceRef section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in PeptideEvidenceRef section: " + attributeName);
 			}
 		}
 		return peptideEvidence;

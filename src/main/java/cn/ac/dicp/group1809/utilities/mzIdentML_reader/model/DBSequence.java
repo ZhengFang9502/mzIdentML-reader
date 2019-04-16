@@ -27,7 +27,7 @@ public class DBSequence extends Identifiable {
 	/**
 	 * Additional descriptors for the sequence, such as taxon, description line etc.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
 	/**
 	 * The length of the sequence as a number of bases or residues.
@@ -51,17 +51,17 @@ public class DBSequence extends Identifiable {
 	}
 
 	public void setSeq(String seq) {
-		if (!seq.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]*")) {
+		if (!seq.matches("[A-Z]*")) {
 			throw new IllegalArgumentException("Invalid sequence: " + seq);
 		}
 		this.seq = seq;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

@@ -25,10 +25,8 @@ public class SpectrumIdentificationProtocolReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "analysisSoftware_ref":
-					spectrumIdentificationProtocol.setAnalysisSoftware_ref(attributeValue);
-					break;
+			if ("analysisSoftware_ref".equals(attributeName)) {
+				spectrumIdentificationProtocol.setAnalysisSoftware_ref(attributeValue);
 			}
 		}
 

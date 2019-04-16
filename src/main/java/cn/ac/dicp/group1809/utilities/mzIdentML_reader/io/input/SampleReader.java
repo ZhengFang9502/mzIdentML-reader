@@ -23,7 +23,7 @@ public class SampleReader {
 		IdentifiableReader.read(reader, sample);
 		List<ContactRole> contactRoleList = new ArrayList<>();
 		List<SubSample> subSampleList = new ArrayList<>();
-		List<ParamGroup> paramGroupList = new ArrayList<>();
+		List<AbstractParam> paramGroupList = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -42,11 +42,11 @@ public class SampleReader {
 							subSampleList.add(subSample);
 							break;
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroupList.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroupList.add(userParam);
 							break;
 						default:

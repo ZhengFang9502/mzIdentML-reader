@@ -44,14 +44,12 @@ public class ProviderReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "ContactRole":
-							ContactRole contactRole = ContactRoleReader.read(reader);
-							provider.setContactRole(contactRole);
-							break;
-						default:
-							logger.error("Invalid local name in Provider section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in Provider section: " + localName);
+					if ("ContactRole".equals(localName)) {
+						ContactRole contactRole = ContactRoleReader.read(reader);
+						provider.setContactRole(contactRole);
+					} else {
+						logger.error("Invalid local name in Provider section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in Provider section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

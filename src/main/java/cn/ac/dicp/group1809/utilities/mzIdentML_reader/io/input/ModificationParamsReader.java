@@ -29,14 +29,12 @@ public class ModificationParamsReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "SearchModification":
-							SearchModification searchModification = SearchModificationReader.read(reader);
-							searchModifications.add(searchModification);
-							break;
-						default:
-							logger.error("Invalid local name in ModificationParams section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in ModificationParams section: " + localName);
+					if ("SearchModification".equals(localName)) {
+						SearchModification searchModification = SearchModificationReader.read(reader);
+						searchModifications.add(searchModification);
+					} else {
+						logger.error("Invalid local name in ModificationParams section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in ModificationParams section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

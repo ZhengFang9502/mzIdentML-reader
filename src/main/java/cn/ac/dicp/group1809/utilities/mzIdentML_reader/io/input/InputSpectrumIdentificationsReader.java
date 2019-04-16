@@ -19,13 +19,11 @@ public class InputSpectrumIdentificationsReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "spectrumIdentificationList_ref":
-					inputSpectrumIdentifications.setSpectrumIdentificationList_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in InputSpectrumIdentifications section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in InputSpectrumIdentifications section: " + attributeName);
+			if ("spectrumIdentificationList_ref".equals(attributeName)) {
+				inputSpectrumIdentifications.setSpectrumIdentificationList_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in InputSpectrumIdentifications section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in InputSpectrumIdentifications section: " + attributeName);
 			}
 		}
 		return inputSpectrumIdentifications;

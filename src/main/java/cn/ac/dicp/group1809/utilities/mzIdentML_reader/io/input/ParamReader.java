@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Param;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParamGroup;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +29,11 @@ public class ParamReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							param.setParamGroup(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							param.setParamGroup(userParam);
 							break;
 						default:

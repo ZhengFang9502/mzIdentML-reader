@@ -28,15 +28,13 @@ public class SpectrumIdentificationListReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "numSequencesSearched":
-					spectrumIdentificationList.setNumSequencesSearched(Long.valueOf(attributeValue));
-					break;
+			if ("numSequencesSearched".equals(attributeName)) {
+				spectrumIdentificationList.setNumSequencesSearched(Long.valueOf(attributeValue));
 			}
 		}
 
 		List<SpectrumIdentificationResult> spectrumIdentificationResults = new ArrayList<>();
-		List<ParamGroup> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroups = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -55,11 +53,11 @@ public class SpectrumIdentificationListReader {
 							spectrumIdentificationResults.add(spectrumIdentificationResult);
 							break;
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroups.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroups.add(userParam);
 							break;
 						default:

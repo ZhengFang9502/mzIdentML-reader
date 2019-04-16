@@ -29,14 +29,12 @@ public class FragmentationTableReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "Measure":
-							Measure measure = MeasureReader.read(reader);
-							measures.add(measure);
-							break;
-						default:
-							logger.error("Invalid local name in FragmentationTable section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in FragmentationTable section: " + localName);
+					if ("Measure".equals(localName)) {
+						Measure measure = MeasureReader.read(reader);
+						measures.add(measure);
+					} else {
+						logger.error("Invalid local name in FragmentationTable section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in FragmentationTable section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

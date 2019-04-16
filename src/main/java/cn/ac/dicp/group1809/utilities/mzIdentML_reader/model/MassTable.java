@@ -27,7 +27,7 @@ public class MassTable extends Identifiable {
 	/**
 	 * Additional parameters or descriptors for the MassTable.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * The MS spectrum that the MassTable refers to e.g. "1" for MS1 "2" for MS2 or "1 2" for MS1 or MS2.
 	 */
@@ -50,11 +50,11 @@ public class MassTable extends Identifiable {
 		this.ambiguousResidue = ambiguousResidue;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

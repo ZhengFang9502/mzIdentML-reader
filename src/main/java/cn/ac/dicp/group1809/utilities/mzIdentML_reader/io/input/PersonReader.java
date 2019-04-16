@@ -47,7 +47,7 @@ public class PersonReader {
 		}
 
 		List<Affiliation> affiliations = new ArrayList<>();
-		List<ParamGroup> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroups = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -57,11 +57,11 @@ public class PersonReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroups.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroups.add(userParam);
 							break;
 						case "Affiliation":

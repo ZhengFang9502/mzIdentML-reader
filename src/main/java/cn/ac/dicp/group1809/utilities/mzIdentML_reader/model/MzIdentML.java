@@ -2,8 +2,12 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -167,5 +171,17 @@ public class MzIdentML extends Identifiable {
 		} else {
 			throw new IllegalArgumentException("Invalid version format: " + version);
 		}
+	}
+
+	public void write(String path) throws JAXBException {
+		if (!path.endsWith(".mzid")) {
+			throw new IllegalArgumentException("Invalid path: " + path);
+		}
+		File file = new File(path);
+		JAXBContext jaxbContext = JAXBContext.newInstance(MzIdentML.class);
+		Marshaller marshaller = jaxbContext.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.marshal(this, file);
 	}
 }

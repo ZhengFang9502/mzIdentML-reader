@@ -13,13 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Param {
 	@XmlElement
-	private ParamGroup paramGroup;
+	private AbstractParam paramGroup;
 
-	public ParamGroup getParamGroup() {
+	public AbstractParam getParamGroup() {
 		return paramGroup;
 	}
 
-	public void setParamGroup(ParamGroup paramGroup) {
+	public void setParamGroup(AbstractParam paramGroup) {
 		this.paramGroup = paramGroup;
 	}
 }

@@ -51,14 +51,12 @@ public class ModificationReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							cvParamList.add(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in Modification section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in Modification section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						cvParamList.add(cvParam);
+					} else {
+						logger.error("Invalid local name in Modification section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in Modification section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

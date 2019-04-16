@@ -42,7 +42,7 @@ public class ProteinDetectionHypothesisReader {
 		}
 
 		List<PeptideHypothesis> peptideHypotheses = new ArrayList<>();
-		List<ParamGroup> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroups = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -57,11 +57,11 @@ public class ProteinDetectionHypothesisReader {
 							peptideHypotheses.add(peptideHypothesis);
 							break;
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroups.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroups.add(userParam);
 							break;
 						default:

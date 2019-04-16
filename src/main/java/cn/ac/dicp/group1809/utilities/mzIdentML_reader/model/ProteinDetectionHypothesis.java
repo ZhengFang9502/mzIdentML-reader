@@ -22,7 +22,7 @@ public class ProteinDetectionHypothesis extends Identifiable {
 	/**
 	 * Scores or parameters associated with this ProteinDetectionHypothesis e.g. p-value
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * A reference to the corresponding DBSequence entry.
 	 * This optional and redundant, because the PeptideEvidence elements referenced from here also map to the DBSequence.
@@ -44,11 +44,11 @@ public class ProteinDetectionHypothesis extends Identifiable {
 		this.peptideHypothesis = peptideHypothesis;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

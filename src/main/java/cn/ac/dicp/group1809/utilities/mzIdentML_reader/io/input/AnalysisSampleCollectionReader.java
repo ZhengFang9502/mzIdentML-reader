@@ -29,14 +29,12 @@ public class AnalysisSampleCollectionReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "Sample":
-							Sample sample = SampleReader.read(reader);
-							samples.add(sample);
-							break;
-						default:
-							logger.error("Invalid local name in AnalysisSampleCollection section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in AnalysisSampleCollection section: " + localName);
+					if ("Sample".equals(localName)) {
+						Sample sample = SampleReader.read(reader);
+						samples.add(sample);
+					} else {
+						logger.error("Invalid local name in AnalysisSampleCollection section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in AnalysisSampleCollection section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

@@ -24,7 +24,7 @@ public class SpectrumIdentificationList extends Identifiable {
 	/**
 	 * Scores or output parameters associated with the SpectrumIdentificationList.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * The number of database sequences searched against.
 	 * This value should be provided unless a de novo search has been performed.
@@ -48,11 +48,11 @@ public class SpectrumIdentificationList extends Identifiable {
 		this.spectrumIdentificationResult = spectrumIdentificationResult;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

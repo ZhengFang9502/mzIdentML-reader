@@ -34,7 +34,7 @@ public class Peptide extends Identifiable {
 	/**
 	 * Additional descriptors of this peptide sequence
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
 	public String getPeptideSequence() {
 		return peptideSequence;
@@ -63,11 +63,11 @@ public class Peptide extends Identifiable {
 		this.substitutionModification = substitutionModification;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 }

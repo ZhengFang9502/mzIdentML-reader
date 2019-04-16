@@ -31,7 +31,7 @@ public class Sample extends Identifiable {
 	/**
 	 * The characteristics of a Material.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
 	public List<ContactRole> getContactRole() {
 		return contactRole;
@@ -49,11 +49,11 @@ public class Sample extends Identifiable {
 		this.subSample = subSample;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 }

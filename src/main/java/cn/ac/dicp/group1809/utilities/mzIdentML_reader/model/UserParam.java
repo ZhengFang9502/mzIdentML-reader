@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UserParam extends AbstractParam implements ParamGroup {
+public class UserParam extends AbstractParam {
 	/**
 	 * The datatype of the parameter, where appropriate (e.g.: xsd:float).
 	 */

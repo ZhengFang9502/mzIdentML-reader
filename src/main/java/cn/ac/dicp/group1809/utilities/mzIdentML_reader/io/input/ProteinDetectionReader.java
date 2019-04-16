@@ -51,14 +51,12 @@ public class ProteinDetectionReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "InputSpectrumIdentifications":
-							InputSpectrumIdentifications spectrumIdentifications = InputSpectrumIdentificationsReader.read(reader);
-							inputSpectrumIdentifications.add(spectrumIdentifications);
-							break;
-						default:
-							logger.error("Invalid local name in ProteinDetection section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in ProteinDetection section: " + localName);
+					if ("InputSpectrumIdentifications".equals(localName)) {
+						InputSpectrumIdentifications spectrumIdentifications = InputSpectrumIdentificationsReader.read(reader);
+						inputSpectrumIdentifications.add(spectrumIdentifications);
+					} else {
+						logger.error("Invalid local name in ProteinDetection section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in ProteinDetection section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

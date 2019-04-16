@@ -31,7 +31,7 @@ public class Residue {
 	}
 
 	public void setCode(String code) {
-		if (!code.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]")) {
+		if (!code.matches("[A-Z]")) {
 			throw new IllegalArgumentException("Invalid code: " + code);
 		}
 		this.code = code;

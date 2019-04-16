@@ -48,7 +48,7 @@ public class MassTableReader {
 
 		List<Residue> residues = new ArrayList<>();
 		List<AmbiguousResidue> ambiguousResidues = new ArrayList<>();
-		List<ParamGroup> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroups = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -64,11 +64,11 @@ public class MassTableReader {
 							ambiguousResidues.add(AmbiguousResidueReader.read(reader));
 							break;
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroups.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroups.add(userParam);
 							break;
 						default:

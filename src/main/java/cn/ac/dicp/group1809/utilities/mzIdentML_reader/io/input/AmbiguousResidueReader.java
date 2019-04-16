@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AmbiguousResidue;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParamGroup;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +27,14 @@ public class AmbiguousResidueReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "code":
-					ambiguousResidue.setCode(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in AmbiguousResidue section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in AmbiguousResidue section: " + attributeName);
+			if ("code".equals(attributeName)) {
+				ambiguousResidue.setCode(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in AmbiguousResidue section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in AmbiguousResidue section: " + attributeName);
 			}
 		}
-		List<ParamGroup> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroups = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -46,11 +44,11 @@ public class AmbiguousResidueReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							ParamGroup cvParam = ParamGroupReader.read(reader, new CVParam());
+							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
 							paramGroups.add(cvParam);
 							break;
 						case "userParam":
-							ParamGroup userParam = ParamGroupReader.read(reader, new UserParam());
+							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
 							paramGroups.add(userParam);
 							break;
 						default:

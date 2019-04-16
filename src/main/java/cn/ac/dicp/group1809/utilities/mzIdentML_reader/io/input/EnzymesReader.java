@@ -25,13 +25,11 @@ public class EnzymesReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "independent":
-					enzymes.setIndependent(attributeValue.equals("true"));
-					break;
-				default:
-					logger.error("Invalid attribute name in Enzymes section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in Enzymes section: " + attributeName);
+			if ("independent".equals(attributeName)) {
+				enzymes.setIndependent(attributeValue.equals("true"));
+			} else {
+				logger.error("Invalid attribute name in Enzymes section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in Enzymes section: " + attributeName);
 			}
 		}
 
@@ -43,14 +41,12 @@ public class EnzymesReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "Enzyme":
-							Enzyme enzyme = EnzymeReader.read(reader);
-							enzymeList.add(enzyme);
-							break;
-						default:
-							logger.error("Invalid local name in Enzymes section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in Enzymes section: " + localName);
+					if ("Enzyme".equals(localName)) {
+						Enzyme enzyme = EnzymeReader.read(reader);
+						enzymeList.add(enzyme);
+					} else {
+						logger.error("Invalid local name in Enzymes section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in Enzymes section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

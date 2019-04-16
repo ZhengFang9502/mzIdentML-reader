@@ -26,14 +26,12 @@ public class SpectrumIDFormatReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							spectrumIDFormat.setCvParam(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in SpectrumIDFormat section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in SpectrumIDFormat section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						spectrumIDFormat.setCvParam(cvParam);
+					} else {
+						logger.error("Invalid local name in SpectrumIDFormat section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in SpectrumIDFormat section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

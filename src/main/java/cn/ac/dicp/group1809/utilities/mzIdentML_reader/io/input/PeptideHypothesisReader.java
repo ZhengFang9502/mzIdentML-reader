@@ -25,13 +25,11 @@ public class PeptideHypothesisReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "peptideEvidence_ref":
-					peptideHypothesis.setPeptideEvidence_ref(attributeValue);
-					break;
-				default:
-					logger.error("Invalid attribute name in PeptideHypothesis section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in PeptideHypothesis section: " + attributeName);
+			if ("peptideEvidence_ref".equals(attributeName)) {
+				peptideHypothesis.setPeptideEvidence_ref(attributeValue);
+			} else {
+				logger.error("Invalid attribute name in PeptideHypothesis section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in PeptideHypothesis section: " + attributeName);
 			}
 		}
 
@@ -44,14 +42,12 @@ public class PeptideHypothesisReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "SpectrumIdentificationItemRef":
-							SpectrumIdentificationItemRef spectrumIdentificationItemRef = SpectrumIdentificationItemRefReader.read(reader);
-							spectrumIdentificationItemRefs.add(spectrumIdentificationItemRef);
-							break;
-						default:
-							logger.error("Invalid local name in PeptideHypothesis section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in PeptideHypothesis section: " + localName);
+					if ("SpectrumIdentificationItemRef".equals(localName)) {
+						SpectrumIdentificationItemRef spectrumIdentificationItemRef = SpectrumIdentificationItemRefReader.read(reader);
+						spectrumIdentificationItemRefs.add(spectrumIdentificationItemRef);
+					} else {
+						logger.error("Invalid local name in PeptideHypothesis section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in PeptideHypothesis section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

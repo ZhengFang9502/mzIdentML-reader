@@ -43,17 +43,14 @@ public class MzIdentMLReader {
 		String localName;
 		while (reader.hasNext()) {
 			int next = reader.next();
-			switch (next) {
-				case XMLStreamReader.START_ELEMENT:
-					localName = reader.getLocalName();
-					switch (localName) {
-						case "MzIdentML":
-							mzIdentML = readMzIdentML(reader);
-							break;
-						default:
-							logger.error("Invalid local name in MzIdentML section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in MzIdentML section: " + localName);
-					}
+			if (next == XMLStreamReader.START_ELEMENT) {
+				localName = reader.getLocalName();
+				if ("MzIdentML".equals(localName)) {
+					mzIdentML = readMzIdentML(reader);
+				} else {
+					logger.error("Invalid local name in MzIdentML section: " + localName);
+					throw new IllegalArgumentException("Invalid local name in MzIdentML section: " + localName);
+				}
 			}
 		}
 		return mzIdentML;

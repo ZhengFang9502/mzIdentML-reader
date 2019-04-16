@@ -23,7 +23,7 @@ public class ProteinDetectionList extends Identifiable {
 	/**
 	 * Scores or output parameters associated with the whole ProteinDetectionList
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 
 	public List<ProteinAmbiguityGroup> getProteinAmbiguityGroup() {
 		return proteinAmbiguityGroup;
@@ -33,11 +33,11 @@ public class ProteinDetectionList extends Identifiable {
 		this.proteinAmbiguityGroup = proteinAmbiguityGroup;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 }

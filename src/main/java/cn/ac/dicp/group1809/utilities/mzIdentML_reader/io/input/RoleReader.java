@@ -26,14 +26,12 @@ public class RoleReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							role.setCvParam(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in role section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in role section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						role.setCvParam(cvParam);
+					} else {
+						logger.error("Invalid local name in role section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in role section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

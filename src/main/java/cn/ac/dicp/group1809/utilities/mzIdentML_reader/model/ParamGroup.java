@@ -1,10 +1,17 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 /**
- * A choice of either a cvParam or userParam.
- *
- * @author ZhengFang 2018/9/18
- * @since V1.0
+ * @author Zheng Fang 2019/3/28
+ * @since V1.0.0
  */
-public interface ParamGroup {
+public class ParamGroup {
+	private AbstractParam abstractParam;
+
+	public AbstractParam getAbstractParam() {
+		return abstractParam;
+	}
+
+	public void setAbstractParam(AbstractParam abstractParam) {
+		this.abstractParam = abstractParam;
+	}
 }

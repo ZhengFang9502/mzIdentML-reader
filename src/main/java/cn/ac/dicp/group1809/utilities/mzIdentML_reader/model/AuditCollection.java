@@ -14,13 +14,13 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AuditCollection {
 	@XmlElement
-	private List<Audit> auditCollection;
+	private List<AbstractContact> auditCollection;
 
-	public List<Audit> getAuditCollection() {
+	public List<AbstractContact> getAuditCollection() {
 		return auditCollection;
 	}
 
-	public void setAuditCollection(List<Audit> auditCollection) {
+	public void setAuditCollection(List<AbstractContact> auditCollection) {
 		this.auditCollection = auditCollection;
 	}
 }

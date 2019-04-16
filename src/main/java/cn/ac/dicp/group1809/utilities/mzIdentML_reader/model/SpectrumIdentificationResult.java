@@ -24,7 +24,7 @@ public class SpectrumIdentificationResult extends Identifiable {
 	/**
 	 * Scores or parameters associated with the SpectrumIdentificationResult (i.e the set of SpectrumIdentificationItems derived from one spectrum) e.g. the number of peptide sequences within the parent tolerance for this spectrum.
 	 */
-	private List<ParamGroup> paramGroupList;
+	private List<AbstractParam> paramGroupList;
 	/**
 	 * The locally unique id for the spectrum in the spectra data set specified by SpectraData_ref.
 	 * External guidelines are provided on the use of consistent identifiers for spectra in different external formats.
@@ -45,11 +45,11 @@ public class SpectrumIdentificationResult extends Identifiable {
 		this.spectrumIdentificationItem = spectrumIdentificationItem;
 	}
 
-	public List<ParamGroup> getParamGroupList() {
+	public List<AbstractParam> getParamGroupList() {
 		return paramGroupList;
 	}
 
-	public void setParamGroupList(List<ParamGroup> paramGroupList) {
+	public void setParamGroupList(List<AbstractParam> paramGroupList) {
 		this.paramGroupList = paramGroupList;
 	}
 

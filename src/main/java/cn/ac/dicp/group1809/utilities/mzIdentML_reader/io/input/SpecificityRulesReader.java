@@ -29,14 +29,12 @@ public class SpecificityRulesReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							cvParams.add(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in SpecificityRules section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in SpecificityRules section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						cvParams.add(cvParam);
+					} else {
+						logger.error("Invalid local name in SpecificityRules section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in SpecificityRules section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

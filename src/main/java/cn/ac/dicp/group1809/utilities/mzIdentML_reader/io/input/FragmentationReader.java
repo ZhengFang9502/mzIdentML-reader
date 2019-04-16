@@ -29,14 +29,12 @@ public class FragmentationReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "IonType":
-							IonType ionType = IonTypeReader.read(reader);
-							ionTypes.add(ionType);
-							break;
-						default:
-							logger.error("Invalid local name in Fragmentation section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in Fragmentation section: " + localName);
+					if ("IonType".equals(localName)) {
+						IonType ionType = IonTypeReader.read(reader);
+						ionTypes.add(ionType);
+					} else {
+						logger.error("Invalid local name in Fragmentation section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in Fragmentation section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

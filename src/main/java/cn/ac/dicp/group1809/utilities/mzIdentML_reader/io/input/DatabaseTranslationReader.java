@@ -25,18 +25,16 @@ public class DatabaseTranslationReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "frames":
-					String[] split = attributeValue.split(" ");
-					List<AllowedFrame> frames = new ArrayList<>();
-					for (String s : split) {
-						frames.add(AllowedFrame.forAllowedFrame(Integer.valueOf(s)));
-					}
-					databaseTranslation.setFrames(frames);
-					break;
-				default:
-					logger.error("Invalid attribute name in DatabaseTranslation section: " + attributeName);
-					throw new IllegalArgumentException("Invalid attribute name in DatabaseTranslation section: " + attributeName);
+			if ("frames".equals(attributeName)) {
+				String[] split = attributeValue.split(" ");
+				List<AllowedFrame> frames = new ArrayList<>();
+				for (String s : split) {
+					frames.add(AllowedFrame.forAllowedFrame(Integer.valueOf(s)));
+				}
+				databaseTranslation.setFrames(frames);
+			} else {
+				logger.error("Invalid attribute name in DatabaseTranslation section: " + attributeName);
+				throw new IllegalArgumentException("Invalid attribute name in DatabaseTranslation section: " + attributeName);
 			}
 		}
 
@@ -49,14 +47,12 @@ public class DatabaseTranslationReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "TranslationTable":
-							TranslationTable translationTable = TranslationTableReader.read(reader);
-							translationTables.add(translationTable);
-							break;
-						default:
-							logger.error("Invalid local name in DatabaseTranslation section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in DatabaseTranslation section: " + localName);
+					if ("TranslationTable".equals(localName)) {
+						TranslationTable translationTable = TranslationTableReader.read(reader);
+						translationTables.add(translationTable);
+					} else {
+						logger.error("Invalid local name in DatabaseTranslation section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in DatabaseTranslation section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

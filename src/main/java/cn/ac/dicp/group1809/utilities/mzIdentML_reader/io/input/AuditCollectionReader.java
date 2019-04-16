@@ -1,9 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Audit;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AuditCollection;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Organization;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Person;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +19,7 @@ public class AuditCollectionReader {
 	public static AuditCollection read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		AuditCollection auditCollection = new AuditCollection();
-		List<Audit> audits = new ArrayList<>();
+		List<AbstractContact> audits = new ArrayList<>();
 
 		String localName;
 		loop:

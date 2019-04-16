@@ -29,14 +29,12 @@ public class AnalysisSoftwareListReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "AnalysisSoftware":
-							AnalysisSoftware analysisSoftware = AnalysisSoftwareReader.read(reader);
-							analysisSoftwares.add(analysisSoftware);
-							break;
-						default:
-							logger.error("Invalid local name in AnalysisSoftwareList section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in AnalysisSoftwareList section: " + localName);
+					if ("AnalysisSoftware".equals(localName)) {
+						AnalysisSoftware analysisSoftware = AnalysisSoftwareReader.read(reader);
+						analysisSoftwares.add(analysisSoftware);
+					} else {
+						logger.error("Invalid local name in AnalysisSoftwareList section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in AnalysisSoftwareList section: " + localName);
 					}
 					break;
 				case XMLStreamConstants.END_ELEMENT:

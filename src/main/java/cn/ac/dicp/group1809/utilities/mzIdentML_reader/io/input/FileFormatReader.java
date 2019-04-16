@@ -25,14 +25,12 @@ public class FileFormatReader {
 			switch (next) {
 				case XMLStreamReader.START_ELEMENT:
 					localName = reader.getLocalName();
-					switch (localName) {
-						case "cvParam":
-							CVParam cvParam = CVParamReader.read(reader);
-							fileFormat.setCvParam(cvParam);
-							break;
-						default:
-							logger.error("Invalid local name in FileFormat section: " + localName);
-							throw new IllegalArgumentException("Invalid local name in FileFormat section: " + localName);
+					if ("cvParam".equals(localName)) {
+						CVParam cvParam = CVParamReader.read(reader);
+						fileFormat.setCvParam(cvParam);
+					} else {
+						logger.error("Invalid local name in FileFormat section: " + localName);
+						throw new IllegalArgumentException("Invalid local name in FileFormat section: " + localName);
 					}
 					break;
 				case XMLStreamReader.END_ELEMENT:

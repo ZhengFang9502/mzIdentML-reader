@@ -15,10 +15,8 @@ public class ExternalDataReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "location":
-					externalData.setLocation(attributeValue);
-					break;
+			if ("location".equals(attributeName)) {
+				externalData.setLocation(attributeValue);
 			}
 		}
 	}

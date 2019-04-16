@@ -17,7 +17,7 @@ import java.util.List;
 		"firstName",
 		"midInitials"
 })
-public class Person extends AbstractContact implements Audit {
+public class Person extends AbstractContact {
 	/**
 	 * The organization a person belongs to.
 	 */

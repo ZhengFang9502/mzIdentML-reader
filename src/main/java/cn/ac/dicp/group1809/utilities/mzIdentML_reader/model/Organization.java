@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Organization extends AbstractContact implements Audit {
+public class Organization extends AbstractContact{
 	@XmlElement(name = "Parent")
 	private ParentOrganization parent;
 

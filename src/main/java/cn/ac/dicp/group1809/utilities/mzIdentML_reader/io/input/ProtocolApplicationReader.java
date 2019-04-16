@@ -18,14 +18,12 @@ public class ProtocolApplicationReader {
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
-			switch (attributeName) {
-				case "activityDate":
-					try {
-						protocolApplication.setActivityDate(new DateAdapter().unmarshal(attributeValue));
-					} catch (ParseException e) {
-						throw new IllegalArgumentException(e.getMessage());
-					}
-					break;
+			if ("activityDate".equals(attributeName)) {
+				try {
+					protocolApplication.setActivityDate(new DateAdapter().unmarshal(attributeValue));
+				} catch (ParseException e) {
+					throw new IllegalArgumentException(e.getMessage());
+				}
 			}
 		}
 	}
