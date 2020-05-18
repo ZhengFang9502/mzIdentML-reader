@@ -1,18 +1,24 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 /**
- * Helper type to allow either a cvParam or a userParam to be provided for an element.
+ * A choice of either a cvParam or userParam.
  *
- * @author ZhengFang 2018/9/18
- * @since V1.0
+ * @author Zheng Fang 2020/5/18
+ * @since V1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Param {
-	@XmlElement
+@XmlType(name = "ParamType", propOrder = {
+		"paramGroup"
+})
+public class Param implements Serializable {
+	private static final long serialVersionUID = 2875154476154101964L;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class),
+	})
 	private AbstractParam paramGroup;
 
 	public AbstractParam getParamGroup() {

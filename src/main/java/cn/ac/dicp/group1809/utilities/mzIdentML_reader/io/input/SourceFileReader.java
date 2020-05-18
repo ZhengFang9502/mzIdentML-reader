@@ -1,9 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FileFormat;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SourceFile;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,15 +15,13 @@ import java.util.List;
  * @since V1.0
  */
 public class SourceFileReader {
-	private static Logger logger = LoggerFactory.getLogger(SourceFileReader.class);
-
 	public static SourceFile read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
 		SourceFile sourceFile = new SourceFile();
 		ExternalDataReader.read(reader, sourceFile);
 
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -41,15 +39,11 @@ public class SourceFileReader {
 							sourceFile.setFileFormat(fileFormat);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in SourceFile section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SourceFile section: " + localName);
 					}
 					break;
@@ -61,7 +55,7 @@ public class SourceFileReader {
 					break;
 			}
 		}
-		sourceFile.setParamGroupList(paramGroups);
+		sourceFile.setParamGroup(paramGroup);
 		return sourceFile;
 	}
 }

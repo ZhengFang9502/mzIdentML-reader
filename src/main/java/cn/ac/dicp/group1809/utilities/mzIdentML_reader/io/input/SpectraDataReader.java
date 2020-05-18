@@ -4,8 +4,6 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FileFormat;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectraData;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIDFormat;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +14,6 @@ import javax.xml.stream.XMLStreamReader;
  * @since V1.0
  */
 public class SpectraDataReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectraDataReader.class);
-
 	public static SpectraData read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		SpectraData spectraData = new SpectraData();
@@ -43,7 +39,6 @@ public class SpectraDataReader {
 							spectraData.setSpectrumIDFormat(spectrumIDFormat);
 							break;
 						default:
-							logger.error("Invalid local name in SpectraData section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SpectraData section: " + localName);
 					}
 					break;

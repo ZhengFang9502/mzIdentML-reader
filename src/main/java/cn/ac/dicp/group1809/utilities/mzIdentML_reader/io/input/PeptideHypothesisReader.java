@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.PeptideHypothesis;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIdentificationItemRef;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -17,8 +15,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class PeptideHypothesisReader {
-	private static Logger logger = LoggerFactory.getLogger(PeptideHypothesisReader.class);
-
 	public static PeptideHypothesis read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		PeptideHypothesis peptideHypothesis = new PeptideHypothesis();
@@ -28,7 +24,6 @@ public class PeptideHypothesisReader {
 			if ("peptideEvidence_ref".equals(attributeName)) {
 				peptideHypothesis.setPeptideEvidence_ref(attributeValue);
 			} else {
-				logger.error("Invalid attribute name in PeptideHypothesis section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in PeptideHypothesis section: " + attributeName);
 			}
 		}
@@ -46,7 +41,6 @@ public class PeptideHypothesisReader {
 						SpectrumIdentificationItemRef spectrumIdentificationItemRef = SpectrumIdentificationItemRefReader.read(reader);
 						spectrumIdentificationItemRefs.add(spectrumIdentificationItemRef);
 					} else {
-						logger.error("Invalid local name in PeptideHypothesis section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in PeptideHypothesis section: " + localName);
 					}
 					break;

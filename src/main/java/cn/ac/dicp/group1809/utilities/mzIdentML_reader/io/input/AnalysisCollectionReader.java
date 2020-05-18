@@ -3,8 +3,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AnalysisCollection;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProteinDetection;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIdentification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -17,8 +15,6 @@ import java.util.List;
  * @since V1.0
  */
 public class AnalysisCollectionReader {
-	private static Logger logger = LoggerFactory.getLogger(AnalysisCollectionReader.class);
-
 	public static AnalysisCollection read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		AnalysisCollection analysisCollection = new AnalysisCollection();
@@ -40,7 +36,6 @@ public class AnalysisCollectionReader {
 							analysisCollection.setProteinDetection(proteinDetection);
 							break;
 						default:
-							logger.error("Invalid local name in AnalysisCollection section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in AnalysisCollection section: " + localName);
 					}
 					break;

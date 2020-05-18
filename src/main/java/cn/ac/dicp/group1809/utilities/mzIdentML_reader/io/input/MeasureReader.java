@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Measure;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,7 +14,6 @@ import java.util.List;
  * @since V1.0
  */
 public class MeasureReader {
-	private static Logger logger = LoggerFactory.getLogger(MeasureReader.class);
 
 	public static Measure read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -36,7 +33,6 @@ public class MeasureReader {
 						CVParam cvParam = CVParamReader.read(reader);
 						cvParams.add(cvParam);
 					} else {
-						logger.error("Invalid local name in Measure section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in Measure section: " + localName);
 					}
 					break;

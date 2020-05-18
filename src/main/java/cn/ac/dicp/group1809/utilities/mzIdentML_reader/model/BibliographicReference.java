@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "BibliographicReferenceType", propOrder = {
 		"authors",
 		"publication",
 		"publisher",
@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 		"doi"
 })
 public class BibliographicReference extends Identifiable {
+	private static final long serialVersionUID = 3490462526250171651L;
 	/**
 	 * The names of the authors of the reference.
 	 */
@@ -49,7 +50,7 @@ public class BibliographicReference extends Identifiable {
 	 * The year of publication.
 	 */
 	@XmlAttribute(name = "year")
-	private int year;
+	private Integer year;
 	/**
 	 * The volume name or number.
 	 */
@@ -108,11 +109,11 @@ public class BibliographicReference extends Identifiable {
 		this.editor = editor;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

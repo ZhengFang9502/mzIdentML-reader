@@ -10,19 +10,24 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "ProteinDetectionHypothesisType", propOrder = {
 		"peptideHypothesis",
-		"paramGroupList",
+		"paramGroup",
 		"dBSequence_ref",
 		"passThreshold"
 })
 public class ProteinDetectionHypothesis extends Identifiable {
+	private static final long serialVersionUID = -5847225670406824077L;
 	@XmlElement(name = "PeptideHypothesis")
 	private List<PeptideHypothesis> peptideHypothesis;
 	/**
 	 * Scores or parameters associated with this ProteinDetectionHypothesis e.g. p-value
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
 	/**
 	 * A reference to the corresponding DBSequence entry.
 	 * This optional and redundant, because the PeptideEvidence elements referenced from here also map to the DBSequence.
@@ -44,12 +49,12 @@ public class ProteinDetectionHypothesis extends Identifiable {
 		this.peptideHypothesis = peptideHypothesis;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
 	public String getdBSequence_ref() {

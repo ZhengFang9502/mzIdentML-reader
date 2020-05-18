@@ -1,6 +1,10 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,17 +13,20 @@ import java.util.List;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlType(name = "cvList")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CVList {
+@XmlType(name = "CVListType",propOrder = {
+		"cv"
+})
+public class CVList implements Serializable {
+	private static final long serialVersionUID = -7645781994217482901L;
 	@XmlElement(name = "cv")
-	private List<CV> cvList;
+	private List<CV> cv;
 
-	public List<CV> getCvList() {
-		return cvList;
+	public List<CV> getCv() {
+		return cv;
 	}
 
-	public void setCvList(List<CV> cvList) {
-		this.cvList = cvList;
+	public void setCv(List<CV> cv) {
+		this.cv = cv;
 	}
 }

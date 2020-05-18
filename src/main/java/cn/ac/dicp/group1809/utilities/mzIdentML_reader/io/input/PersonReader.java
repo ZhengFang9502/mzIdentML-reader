@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Affiliation;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Person;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,8 +15,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class PersonReader {
-	private static Logger logger = LoggerFactory.getLogger(PersonReader.class);
-
 	public static Person read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -41,13 +39,12 @@ public class PersonReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in Person section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in Person section: " + attributeName);
 			}
 		}
 
 		List<Affiliation> affiliations = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -57,19 +54,15 @@ public class PersonReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						case "Affiliation":
 							Affiliation affiliation = AffiliationReader.read(reader);
 							affiliations.add(affiliation);
 							break;
 						default:
-							logger.error("Invalid local name in Person section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Person section: " + localName);
 					}
 					break;
@@ -82,7 +75,7 @@ public class PersonReader {
 			}
 		}
 		person.setAffiliation(affiliations);
-		person.setParamGroupList(paramGroups);
+		person.setParamGroup(paramGroup);
 		return person;
 	}
 }

@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * Reference(s) to the SpectrumIdentificationItem element(s) that support the given PeptideEvidence element.
@@ -12,7 +14,11 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SpectrumIdentificationItemRef {
+@XmlType(name = "SpectrumIdentificationItemRefType", propOrder = {
+		"spectrumIdentificationItem_ref"
+})
+public class SpectrumIdentificationItemRef implements Serializable {
+	private static final long serialVersionUID = -5046829663191916141L;
 	/**
 	 * A reference to the SpectrumIdentificationItem element(s).
 	 */

@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Role;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -14,8 +12,6 @@ import javax.xml.stream.XMLStreamReader;
  * @since V1.0
  */
 public class RoleReader {
-	private static Logger logger = LoggerFactory.getLogger(RoleReader.class);
-
 	public static Role read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		Role role = new Role();
@@ -30,7 +26,6 @@ public class RoleReader {
 						CVParam cvParam = CVParamReader.read(reader);
 						role.setCvParam(cvParam);
 					} else {
-						logger.error("Invalid local name in role section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in role section: " + localName);
 					}
 					break;

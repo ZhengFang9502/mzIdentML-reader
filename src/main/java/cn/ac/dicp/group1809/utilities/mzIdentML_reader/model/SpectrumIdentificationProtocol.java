@@ -9,7 +9,8 @@ import java.util.List;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlType(propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SpectrumIdentificationProtocolType", propOrder = {
 		"searchType",
 		"additionalSearchParams",
 		"modificationParams",
@@ -22,8 +23,8 @@ import java.util.List;
 		"databaseTranslation",
 		"analysisSoftware_ref"
 })
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SpectrumIdentificationProtocol extends Identifiable {
+	private static final long serialVersionUID = -5151524627838496285L;
 	/**
 	 * The type of search performed e.g. PMF, Tag searches, MS-MS
 	 */
@@ -54,6 +55,7 @@ public class SpectrumIdentificationProtocol extends Identifiable {
 	private DatabaseFilters databaseFilters;
 	@XmlElement(name = "DatabaseTranslation")
 	private DatabaseTranslation databaseTranslation;
+
 	/**
 	 * The search algorithm used, given as a reference to the SoftwareCollection section.
 	 */

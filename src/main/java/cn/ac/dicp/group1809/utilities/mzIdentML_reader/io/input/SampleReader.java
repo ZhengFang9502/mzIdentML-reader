@@ -1,8 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ContactRole;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Sample;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SubSample;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -15,15 +16,13 @@ import java.util.List;
  * @since V1.0
  */
 public class SampleReader {
-	private static Logger logger = LoggerFactory.getLogger(SampleReader.class);
-
 	public static Sample read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		Sample sample = new Sample();
 		IdentifiableReader.read(reader, sample);
 		List<ContactRole> contactRoleList = new ArrayList<>();
 		List<SubSample> subSampleList = new ArrayList<>();
-		List<AbstractParam> paramGroupList = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -42,15 +41,11 @@ public class SampleReader {
 							subSampleList.add(subSample);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroupList.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroupList.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in Sample section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Sample section: " + localName);
 					}
 					break;
@@ -62,7 +57,7 @@ public class SampleReader {
 			}
 		}
 		sample.setContactRole(contactRoleList);
-		sample.setParamGroupList(paramGroupList);
+		sample.setParamGroup(paramGroup);
 		sample.setSubSample(subSampleList);
 		return sample;
 	}

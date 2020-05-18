@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * Filters applied to the search database.
@@ -14,12 +15,13 @@ import javax.xml.bind.annotation.XmlType;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "FilterType", propOrder = {
 		"filterType",
 		"include",
 		"exclude"
 })
-public class Filter {
+public class Filter implements Serializable {
+	private static final long serialVersionUID = 7443988523580484001L;
 	/**
 	 * The type of filter e.g. database taxonomy filter, pi filter, mw filter
 	 */

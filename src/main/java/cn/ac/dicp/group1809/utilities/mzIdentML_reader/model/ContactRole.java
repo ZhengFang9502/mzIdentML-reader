@@ -1,6 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 /**
  * The role that a Contact plays in an organization or with respect to the associating class.
@@ -11,14 +12,17 @@ import javax.xml.bind.annotation.*;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ContactRole")
-public class ContactRole {
-	@XmlElement
+@XmlType(name = "ContactRoleType",propOrder = {
+		"role"
+})
+public class ContactRole implements Serializable {
+	private static final long serialVersionUID = 550471250460402289L;
+	@XmlElement(name = "Role")
 	private Role role;
 	/**
 	 * When a ContactRole is used, it specifies which Contact the role is associated with.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "contact_ref", required = true)
 	private String contact_ref;
 
 	public Role getRole() {

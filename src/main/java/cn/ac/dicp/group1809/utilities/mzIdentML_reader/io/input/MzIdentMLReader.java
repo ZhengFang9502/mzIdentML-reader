@@ -1,18 +1,17 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,14 +21,12 @@ import java.util.Map;
  * @since V1.0
  */
 public class MzIdentMLReader {
-	private static Logger logger = LoggerFactory.getLogger(MzIdentMLReader.class);
-	private static MzIdentMLReader instance = new MzIdentMLReader();
+	private Logger logger = LoggerFactory.getLogger(MzIdentMLReader.class);
 
-	public static MzIdentMLReader getInstance() {
-		return instance;
+	public MzIdentMLReader() {
 	}
 
-	public MzIdentML read(String path) throws FileNotFoundException, XMLStreamException {
+	public MzIdentML read(String path) throws XMLStreamException, IOException {
 		String extension = FilenameUtils.getExtension(path);
 		if (!extension.equals("mzid")) {
 			logger.error("Invalid mzIdentML file format: " + path);
@@ -38,21 +35,30 @@ public class MzIdentMLReader {
 		logger.info("Reading mzIdentML file: " + path);
 		FileInputStream inputStream = new FileInputStream(new File(path));
 		XMLInputFactory factory = XMLInputFactory.newInstance();
+		MzIdentML mzIdentML = null;
 		XMLStreamReader reader = factory.createXMLStreamReader(inputStream);
-		MzIdentML mzIdentML = new MzIdentML();
 		String localName;
+		loop:
 		while (reader.hasNext()) {
 			int next = reader.next();
-			if (next == XMLStreamReader.START_ELEMENT) {
-				localName = reader.getLocalName();
-				if ("MzIdentML".equals(localName)) {
-					mzIdentML = readMzIdentML(reader);
-				} else {
-					logger.error("Invalid local name in MzIdentML section: " + localName);
-					throw new IllegalArgumentException("Invalid local name in MzIdentML section: " + localName);
-				}
+			switch (next) {
+				case XMLStreamReader.START_ELEMENT:
+					localName = reader.getLocalName();
+					if ("MzIdentML".equals(localName)) {
+						mzIdentML = readMzIdentML(reader);
+					} else {
+						throw new IllegalArgumentException("Invalid local name in MzIdentML section: " + localName);
+					}
+					break;
+				case XMLStreamConstants.END_ELEMENT:
+					String name = reader.getLocalName();
+					if (name.equals("MzIdentML")) {
+						break loop;
+					}
 			}
 		}
+		reader.close();
+		inputStream.close();
 		return mzIdentML;
 	}
 
@@ -65,11 +71,7 @@ public class MzIdentMLReader {
 			String attributeValue = attributes.get(attributeName);
 			switch (attributeName) {
 				case "creationDate":
-					try {
-						mzIdentML.setCreationDate(new DateAdapter().unmarshal(attributeValue));
-					} catch (ParseException e) {
-						throw new IllegalArgumentException(e.getMessage());
-					}
+					mzIdentML.setCreationDate(attributeValue);
 					break;
 				case "version":
 					mzIdentML.setVersion(attributeValue);
@@ -127,7 +129,6 @@ public class MzIdentMLReader {
 							bibliographicReferences.add(bibliographicReference);
 							break;
 						default:
-							logger.error("Invalid local name in MzIdentML section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in MzIdentML section: " + localName);
 					}
 					break;

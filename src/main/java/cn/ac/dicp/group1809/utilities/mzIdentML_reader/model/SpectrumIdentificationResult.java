@@ -12,19 +12,25 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "SpectrumIdentificationResultType", propOrder = {
 		"spectrumIdentificationItem",
-		"paramGroupList",
+		"paramGroup",
 		"spectrumID",
 		"spectraData_ref",
 })
 public class SpectrumIdentificationResult extends Identifiable {
+	private static final long serialVersionUID = 396228410497971166L;
 	@XmlElement(name = "SpectrumIdentificationItem")
 	private List<SpectrumIdentificationItem> spectrumIdentificationItem;
 	/**
 	 * Scores or parameters associated with the SpectrumIdentificationResult (i.e the set of SpectrumIdentificationItems derived from one spectrum) e.g. the number of peptide sequences within the parent tolerance for this spectrum.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
+
 	/**
 	 * The locally unique id for the spectrum in the spectra data set specified by SpectraData_ref.
 	 * External guidelines are provided on the use of consistent identifiers for spectra in different external formats.
@@ -45,12 +51,12 @@ public class SpectrumIdentificationResult extends Identifiable {
 		this.spectrumIdentificationItem = spectrumIdentificationItem;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
 	public String getSpectrumID() {

@@ -1,7 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,15 +10,16 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "SearchDatabaseType", propOrder = {
 		"databaseName",
 		"cvParam",
 		"version",
 		"releaseDate",
 		"numDatabaseSequences",
-		"numResidues"
+		"numResidues",
 })
 public class SearchDatabase extends ExternalData {
+	private static final long serialVersionUID = -8181161993885826079L;
 	/**
 	 * The database name may be given as a cvParam if it maps exactly to one of the release databases listed in the CV, otherwise a userParam should be used.
 	 */
@@ -27,6 +27,7 @@ public class SearchDatabase extends ExternalData {
 	private Param databaseName;
 	@XmlElement(name = "cvParam")
 	private List<CVParam> cvParam;
+
 	/**
 	 * The version of the database.
 	 */
@@ -36,7 +37,7 @@ public class SearchDatabase extends ExternalData {
 	 * The date and time the database was released to the public; omit this attribute when the date and time are unknown or not applicable (e.g. custom databases).
 	 */
 	@XmlAttribute(name = "releaseDate")
-	private Date releaseDate;
+	private String releaseDate;
 	/**
 	 * The total number of sequences in the database.
 	 */
@@ -72,11 +73,11 @@ public class SearchDatabase extends ExternalData {
 		this.version = version;
 	}
 
-	public Date getReleaseDate() {
+	public String getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
+	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

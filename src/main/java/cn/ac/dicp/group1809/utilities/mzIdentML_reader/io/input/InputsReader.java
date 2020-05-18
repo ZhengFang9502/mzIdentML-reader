@@ -4,8 +4,6 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Inputs;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SearchDatabase;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SourceFile;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectraData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -18,7 +16,6 @@ import java.util.List;
  * @since V1.0
  */
 public class InputsReader {
-	private static Logger logger = LoggerFactory.getLogger(InputsReader.class);
 
 	public static Inputs read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -49,7 +46,6 @@ public class InputsReader {
 							spectraData.add(data);
 							break;
 						default:
-							logger.error("Invalid local name in Inputs section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Inputs section: " + localName);
 					}
 					break;

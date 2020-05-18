@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Enzyme;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Enzymes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -16,8 +14,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class EnzymesReader {
-	private static Logger logger = LoggerFactory.getLogger(EnzymesReader.class);
-
 	public static Enzymes read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		Enzymes enzymes = new Enzymes();
@@ -26,9 +22,8 @@ public class EnzymesReader {
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
 			if ("independent".equals(attributeName)) {
-				enzymes.setIndependent(attributeValue.equals("true"));
+				enzymes.setIndependent(Boolean.valueOf(attributeValue));
 			} else {
-				logger.error("Invalid attribute name in Enzymes section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in Enzymes section: " + attributeName);
 			}
 		}
@@ -45,7 +40,6 @@ public class EnzymesReader {
 						Enzyme enzyme = EnzymeReader.read(reader);
 						enzymeList.add(enzyme);
 					} else {
-						logger.error("Invalid local name in Enzymes section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in Enzymes section: " + localName);
 					}
 					break;

@@ -4,6 +4,7 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.net.URI;
 
 /**
@@ -13,14 +14,15 @@ import java.net.URI;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AnalysisSoftware",propOrder = {
+@XmlType(name = "AnalysisSoftwareType", propOrder = {
 		"contactRole",
 		"softwareName",
 		"customizations",
 		"version",
 		"uri"
 })
-public class AnalysisSoftware extends Identifiable {
+public class AnalysisSoftware extends Identifiable{
+	private static final long serialVersionUID = -8732933078391713064L;
 	/**
 	 * The contact details of the organisation or person that produced the software
 	 */
@@ -40,12 +42,12 @@ public class AnalysisSoftware extends Identifiable {
 	/**
 	 * The version of Software used.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "version")
 	private String version;
 	/**
 	 * URI of the analysis software e.g. manufacturer's website
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "uri")
 	@XmlJavaTypeAdapter(UriAdapter.class)
 	private URI uri;
 

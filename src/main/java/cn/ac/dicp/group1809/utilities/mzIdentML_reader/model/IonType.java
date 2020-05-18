@@ -1,6 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,14 +11,15 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "IonTypeType", propOrder = {
 		"fragmentArray",
 		"userParam",
 		"cvParam",
 		"index",
 		"charge",
 })
-public class IonType {
+public class IonType implements Serializable {
+	private static final long serialVersionUID = 7785383623764808853L;
 	@XmlElement(name = "FragmentArray")
 	private List<FragmentArray> fragmentArray;
 	/**
@@ -44,7 +46,7 @@ public class IonType {
 	 * The charge of the identified fragmentation ions.
 	 */
 	@XmlAttribute(name = "charge", required = true)
-	private int charge;
+	private Integer charge;
 
 	public List<FragmentArray> getFragmentArray() {
 		return fragmentArray;
@@ -78,11 +80,11 @@ public class IonType {
 		this.index = index;
 	}
 
-	public int getCharge() {
+	public Integer getCharge() {
 		return charge;
 	}
 
-	public void setCharge(int charge) {
+	public void setCharge(Integer charge) {
 		this.charge = charge;
 	}
 }

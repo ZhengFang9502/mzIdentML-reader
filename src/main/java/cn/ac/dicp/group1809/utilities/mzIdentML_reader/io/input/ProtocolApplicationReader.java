@@ -1,10 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProtocolApplication;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
 
 import javax.xml.stream.XMLStreamReader;
-import java.text.ParseException;
 import java.util.Map;
 
 /**
@@ -19,11 +17,7 @@ public class ProtocolApplicationReader {
 		for (String attributeName : attributes.keySet()) {
 			String attributeValue = attributes.get(attributeName);
 			if ("activityDate".equals(attributeName)) {
-				try {
-					protocolApplication.setActivityDate(new DateAdapter().unmarshal(attributeValue));
-				} catch (ParseException e) {
-					throw new IllegalArgumentException(e.getMessage());
-				}
+				protocolApplication.setActivityDate(attributeValue);
 			}
 		}
 	}

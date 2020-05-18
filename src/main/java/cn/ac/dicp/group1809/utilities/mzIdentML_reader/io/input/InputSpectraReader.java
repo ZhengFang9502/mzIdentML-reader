@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.InputSpectra;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
@@ -12,7 +10,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class InputSpectraReader {
-	private static Logger logger = LoggerFactory.getLogger(InputSpectraReader.class);
 
 	public static InputSpectra read(XMLStreamReader reader) {
 		InputSpectra inputSpectra = new InputSpectra();
@@ -22,7 +19,6 @@ public class InputSpectraReader {
 			if ("spectraData_ref".equals(attributeName)) {
 				inputSpectra.setSpectraData_ref(attributeValue);
 			} else {
-				logger.error("Invalid attribute name in InputSpectra section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in InputSpectra section: " + attributeName);
 			}
 		}

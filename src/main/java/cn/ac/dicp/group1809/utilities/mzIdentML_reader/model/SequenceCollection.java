@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,12 +14,13 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "SequenceCollectionType", propOrder = {
 		"dbSequence",
 		"peptide",
 		"peptideEvidence",
 })
-public class SequenceCollection {
+public class SequenceCollection implements Serializable {
+	private static final long serialVersionUID = -4573320683840035767L;
 	@XmlElement(name = "DBSequence")
 	private List<DBSequence> dbSequence;
 	@XmlElement(name = "Peptide")

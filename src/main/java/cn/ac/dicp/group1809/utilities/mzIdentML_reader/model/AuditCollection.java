@@ -1,8 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,15 +11,22 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AuditCollection {
-	@XmlElement
-	private List<AbstractContact> auditCollection;
+@XmlType(name = "AuditCollectionType", propOrder = {
+		"contactList"
+})
+public class AuditCollection implements Serializable {
+	private static final long serialVersionUID = -3590685132094946520L;
+	@XmlElements(value = {
+			@XmlElement(name = "Person", type = Person.class),
+			@XmlElement(name = "Organization", type = Organization.class)
+	})
+	private List<AbstractContact> contactList;
 
-	public List<AbstractContact> getAuditCollection() {
-		return auditCollection;
+	public List<AbstractContact> getContactList() {
+		return contactList;
 	}
 
-	public void setAuditCollection(List<AbstractContact> auditCollection) {
-		this.auditCollection = auditCollection;
+	public void setContactList(List<AbstractContact> contactList) {
+		this.contactList = contactList;
 	}
 }

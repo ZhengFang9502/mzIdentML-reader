@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AnalysisSoftware;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AnalysisSoftwareList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +14,6 @@ import java.util.List;
  * @since V1.0
  */
 public class AnalysisSoftwareListReader {
-	private static Logger logger = LoggerFactory.getLogger(AnalysisSoftwareListReader.class);
-
 	public static AnalysisSoftwareList read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		AnalysisSoftwareList analysisSoftwareList = new AnalysisSoftwareList();
@@ -33,7 +29,6 @@ public class AnalysisSoftwareListReader {
 						AnalysisSoftware analysisSoftware = AnalysisSoftwareReader.read(reader);
 						analysisSoftwares.add(analysisSoftware);
 					} else {
-						logger.error("Invalid local name in AnalysisSoftwareList section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in AnalysisSoftwareList section: " + localName);
 					}
 					break;

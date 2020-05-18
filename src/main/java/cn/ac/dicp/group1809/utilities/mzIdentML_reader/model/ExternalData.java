@@ -2,10 +2,7 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URI;
 
@@ -13,16 +10,17 @@ import java.net.URI;
  * Data external to the XML instance document.
  * The location of the data file is given in the location attribute.
  *
- * @author ZhengFang 2018/9/19
- * @since V1.0
+ * @author Zheng Fang 2020/5/18
+ * @since V1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "ExternalDataType",propOrder = {
 		"externalFormatDocumentation",
 		"fileFormat",
-		"location"
+		"location",
 })
-public abstract class ExternalData extends Identifiable {
+public class ExternalData extends Identifiable {
+	private static final long serialVersionUID = -5701207519960463771L;
 	/**
 	 * A URI to access documentation and tools to interpret the external format of the ExternalData instance.
 	 * For example, XML Schema or static libraries (APIs) to access binary formats.
@@ -35,7 +33,7 @@ public abstract class ExternalData extends Identifiable {
 	/**
 	 * The location of the data file.
 	 */
-	@XmlElement(name = "location")
+	@XmlAttribute(name = "location", required = true)
 	private String location;
 
 	public URI getExternalFormatDocumentation() {

@@ -11,14 +11,15 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "DBSequenceType", propOrder = {
 		"seq",
-		"paramGroupList",
+		"paramGroup",
 		"length",
 		"searchDatabase_ref",
 		"accession"
 })
 public class DBSequence extends Identifiable {
+	private static final long serialVersionUID = -609941451259943843L;
 	/**
 	 * The actual sequence of amino acids or nucleic acid.
 	 */
@@ -27,23 +28,26 @@ public class DBSequence extends Identifiable {
 	/**
 	 * Additional descriptors for the sequence, such as taxon, description line etc.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
 
 	/**
 	 * The length of the sequence as a number of bases or residues.
 	 */
-	@XmlAttribute
-	private int length;
-
+	@XmlAttribute(name = "length")
+	private Integer length;
 	/**
 	 * The source database of this sequence.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "searchDatabase_ref", required = true)
 	private String searchDatabase_ref;
 	/**
 	 * The unique accession of this sequence.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "accession", required = true)
 	private String accession;
 
 	public String getSeq() {
@@ -57,19 +61,19 @@ public class DBSequence extends Identifiable {
 		this.seq = seq;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
-	public int getLength() {
+	public Integer getLength() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void setLength(Integer length) {
 		this.length = length;
 	}
 

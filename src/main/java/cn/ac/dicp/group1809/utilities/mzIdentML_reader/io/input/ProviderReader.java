@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ContactRole;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Provider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -14,8 +12,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ProviderReader {
-	private static Logger logger = LoggerFactory.getLogger(ProviderReader.class);
-
 	public static Provider read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -32,7 +28,6 @@ public class ProviderReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in Provider section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in Provider section: " + attributeName);
 			}
 		}
@@ -48,7 +43,6 @@ public class ProviderReader {
 						ContactRole contactRole = ContactRoleReader.read(reader);
 						provider.setContactRole(contactRole);
 					} else {
-						logger.error("Invalid local name in Provider section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in Provider section: " + localName);
 					}
 					break;

@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * The collection of input and output data sets of the analyses.
@@ -11,7 +13,12 @@ import javax.xml.bind.annotation.XmlElement;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DataCollection {
+@XmlType(name = "DataCollectionType",propOrder = {
+		"inputs",
+		"analysisData"
+})
+public class DataCollection implements Serializable {
+	private static final long serialVersionUID = 1705781932585344942L;
 	@XmlElement(name = "Inputs")
 	private Inputs inputs;
 	@XmlElement(name = "AnalysisData")

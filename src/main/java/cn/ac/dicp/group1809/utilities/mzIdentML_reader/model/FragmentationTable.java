@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +14,11 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FragmentationTable {
+@XmlType(name = "FragmentationTableType", propOrder = {
+		"measure"
+})
+public class FragmentationTable implements Serializable {
+	private static final long serialVersionUID = 4268364734389808090L;
 	@XmlElement(name = "Measure")
 	private List<Measure> measure;
 

@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,11 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AnalysisSampleCollection {
+@XmlType(name = "AnalysisSampleCollectionType",propOrder = {
+		"sample"
+})
+public class AnalysisSampleCollection implements Serializable {
+	private static final long serialVersionUID = -2697586001328614824L;
 	@XmlElement(name = "Sample")
 	private List<Sample> sample;
 

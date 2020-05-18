@@ -3,8 +3,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AllowedFrame;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.DatabaseTranslation;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.TranslationTable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -17,8 +15,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class DatabaseTranslationReader {
-	private static Logger logger = LoggerFactory.getLogger(DatabaseTranslationReader.class);
-
 	public static DatabaseTranslation read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		DatabaseTranslation databaseTranslation = new DatabaseTranslation();
@@ -33,7 +29,6 @@ public class DatabaseTranslationReader {
 				}
 				databaseTranslation.setFrames(frames);
 			} else {
-				logger.error("Invalid attribute name in DatabaseTranslation section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in DatabaseTranslation section: " + attributeName);
 			}
 		}
@@ -51,7 +46,6 @@ public class DatabaseTranslationReader {
 						TranslationTable translationTable = TranslationTableReader.read(reader);
 						translationTables.add(translationTable);
 					} else {
-						logger.error("Invalid local name in DatabaseTranslation section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in DatabaseTranslation section: " + localName);
 					}
 					break;

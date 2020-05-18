@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * References to the individual component samples within a mixed parent sample.
@@ -11,13 +12,16 @@ import javax.xml.bind.annotation.XmlType;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlType(name = "SubSample")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SubSample {
+@XmlType(name = "SubSample",propOrder = {
+		"sample_ref"
+})
+public class SubSample implements Serializable {
+	private static final long serialVersionUID = -6717933590535958100L;
 	/**
 	 * A reference to the child sample.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "sample_ref", required = true)
 	private String sample_ref;
 
 	public String getSample_ref() {

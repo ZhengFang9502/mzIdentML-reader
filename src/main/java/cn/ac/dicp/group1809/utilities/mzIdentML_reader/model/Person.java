@@ -11,32 +11,33 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "PersonType", propOrder = {
 		"affiliation",
 		"lastName",
 		"firstName",
 		"midInitials"
 })
 public class Person extends AbstractContact {
+	private static final long serialVersionUID = -2321699943114366170L;
 	/**
 	 * The organization a person belongs to.
 	 */
-	@XmlElement
+	@XmlElement(name = "Affiliation")
 	private List<Affiliation> affiliation;
 	/**
 	 * The Person's last/family name.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "lastName")
 	private String lastName;
 	/**
 	 * The Person's first name.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "firstName")
 	private String firstName;
 	/**
 	 * The Person's middle initial.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "midInitials")
 	private String midInitials;
 
 	public List<Affiliation> getAffiliation() {

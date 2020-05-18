@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Organization;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParentOrganization;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -14,13 +14,12 @@ import java.util.List;
  * @since V1.0
  */
 public class OrganizationReader {
-	private static Logger logger = LoggerFactory.getLogger(OrganizationReader.class);
 
 	public static Organization read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		Organization organization = new Organization();
-		IdentifiableReader.read(reader,organization);
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		IdentifiableReader.read(reader, organization);
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -31,19 +30,15 @@ public class OrganizationReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						case "Parent":
 							ParentOrganization parentOrganization = ParentOrganizationReader.read(reader);
 							organization.setParent(parentOrganization);
 							break;
 						default:
-							logger.error("Invalid local name in Organization section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Organization section: " + localName);
 					}
 					break;
@@ -55,7 +50,7 @@ public class OrganizationReader {
 					break;
 			}
 		}
-		organization.setParamGroupList(paramGroups);
+		organization.setParamGroup(paramGroup);
 		return organization;
 	}
 }

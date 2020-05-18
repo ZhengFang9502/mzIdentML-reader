@@ -4,27 +4,29 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Residue", propOrder = {
+@XmlType(name = "ResidueType", propOrder = {
 		"code",
 		"mass"
 })
-public class Residue {
+public class Residue implements Serializable {
+	private static final long serialVersionUID = 457525617008813242L;
 	/**
 	 * The single letter code for the residue.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "code", required = true)
 	private String code;
 	/**
 	 * The residue mass in Daltons (not including any fixed modifications).
 	 */
-	@XmlAttribute(required = true)
-	private float mass;
+	@XmlAttribute(name = "mass", required = true)
+	private Float mass;
 
 	public String getCode() {
 		return code;
@@ -37,11 +39,11 @@ public class Residue {
 		this.code = code;
 	}
 
-	public float getMass() {
+	public Float getMass() {
 		return mass;
 	}
 
-	public void setMass(float mass) {
+	public void setMass(Float mass) {
 		this.mass = mass;
 	}
 }

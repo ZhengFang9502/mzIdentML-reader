@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParentOrganization;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
@@ -12,8 +10,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ParentOrganizationReader {
-	private static Logger logger = LoggerFactory.getLogger(ParentOrganizationReader.class);
-
 	public static ParentOrganization read(XMLStreamReader reader) {
 		ParentOrganization parentOrganization = new ParentOrganization();
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
@@ -22,7 +18,6 @@ public class ParentOrganizationReader {
 			if ("organization_ref".equals(attributeName)) {
 				parentOrganization.setOrganization_ref(attributeValue);
 			} else {
-				logger.error("Invalid attribute name in ParentOrganization section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in ParentOrganization section: " + attributeName);
 			}
 		}

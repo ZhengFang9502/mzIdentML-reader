@@ -1,6 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
+import sun.plugin2.os.windows.FLASHWINFO;
+
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,15 +13,16 @@ import java.util.List;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlType(propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SearchModificationType", propOrder = {
 		"specificityRules",
 		"cvParam",
 		"fixedMod",
 		"massDelta",
 		"residues"
 })
-@XmlAccessorType(XmlAccessType.FIELD)
-public class SearchModification {
+public class SearchModification implements Serializable {
+	private static final long serialVersionUID = -3359685963623258221L;
 	@XmlElement(name = "SpecificityRules")
 	private List<SpecificityRules> specificityRules;
 	/**
@@ -30,12 +34,12 @@ public class SearchModification {
 	 * True, if the modification is static (i.e. occurs always).
 	 */
 	@XmlAttribute(name = "fixedMod", required = true)
-	private boolean fixedMod;
+	private Boolean fixedMod;
 	/**
 	 * The mass delta of the searched modification in Daltons.
 	 */
 	@XmlAttribute(name = "massDelta", required = true)
-	private double massDelta;
+	private Float massDelta;
 	/**
 	 * The residue(s) searched with the specified modification.
 	 * For N or C terminal modifications that can occur on any residue, the . character should be used to specify any, otherwise the list of amino acids should be provided.
@@ -59,19 +63,19 @@ public class SearchModification {
 		this.cvParam = cvParam;
 	}
 
-	public boolean isFixedMod() {
+	public Boolean getFixedMod() {
 		return fixedMod;
 	}
 
-	public void setFixedMod(boolean fixedMod) {
+	public void setFixedMod(Boolean fixedMod) {
 		this.fixedMod = fixedMod;
 	}
 
-	public double getMassDelta() {
+	public Float getMassDelta() {
 		return massDelta;
 	}
 
-	public void setMassDelta(double massDelta) {
+	public void setMassDelta(Float massDelta) {
 		this.massDelta = massDelta;
 	}
 

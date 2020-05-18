@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.DatabaseFilters;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Filter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,8 +13,6 @@ import java.util.List;
  * @since V1.0
  */
 public class DatabaseFiltersReader {
-	private static Logger logger = LoggerFactory.getLogger(DatabaseFiltersReader.class);
-
 	public static DatabaseFilters read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		DatabaseFilters databaseFilters = new DatabaseFilters();
@@ -33,7 +29,6 @@ public class DatabaseFiltersReader {
 						Filter filter = FilterReader.read(reader);
 						filters.add(filter);
 					} else {
-						logger.error("Invalid local name in DatabaseFilters section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in DatabaseFilters section: " + localName);
 					}
 					break;

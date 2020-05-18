@@ -9,12 +9,13 @@ import javax.xml.bind.annotation.*;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "ProteinDetectionProtocolType", propOrder = {
 		"analysisParams",
 		"threshold",
 		"analysisSoftware_ref",
 })
 public class ProteinDetectionProtocol extends Identifiable {
+	private static final long serialVersionUID = -8856718086238189524L;
 	/**
 	 * The parameters and settings for the protein detection given as CV terms.
 	 */

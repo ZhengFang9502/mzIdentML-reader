@@ -10,10 +10,11 @@ import java.util.List;
  * @author ZhengFang 2018/9/19
  * @since V1.0
  */
-@XmlType(propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SpectrumIdentificationItemType", propOrder = {
 		"peptideEvidenceRef",
 		"fragmentation",
-		"paramGroupList",
+		"paramGroup",
 		"chargeState",
 		"experimentalMassToCharge",
 		"calculatedMassToCharge",
@@ -24,8 +25,8 @@ import java.util.List;
 		"massTable_ref",
 		"sample_ref",
 })
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SpectrumIdentificationItem extends Identifiable {
+	private static final long serialVersionUID = 3722074692907594259L;
 	@XmlElement(name = "PeptideEvidenceRef")
 	private List<PeptideEvidenceRef> peptideEvidenceRef;
 	@XmlElement(name = "Fragmentation")
@@ -33,28 +34,33 @@ public class SpectrumIdentificationItem extends Identifiable {
 	/**
 	 * Scores or attributes associated with the SpectrumIdentificationItem e.g. e-value, p-value, score.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
+
 	/**
 	 * The charge state of the identified peptide.
 	 */
 	@XmlAttribute(name = "chargeState", required = true)
-	private int chargeState;
+	private Integer chargeState;
 	/**
 	 * The mass-to-charge value measured in the experiment in Daltons / charge.
 	 */
 	@XmlAttribute(name = "experimentalMassToCharge", required = true)
-	private double experimentalMassToCharge;
+	private Double experimentalMassToCharge;
 	/**
 	 * The theoretical mass-to-charge value calculated for the peptide in Daltons / charge.
 	 */
 	@XmlAttribute(name = "calculatedMassToCharge")
-	private double calculatedMassToCharge;
+	private Double calculatedMassToCharge;
 	/**
 	 * The calculated isoelectric point of the (poly)peptide, with relevant modifications included.
 	 * Do not supply this value if the PI cannot be calcuated properly.
 	 */
 	@XmlAttribute(name = "calculatedPI")
-	private float calculatedPI;
+	private Float calculatedPI;
 	/**
 	 * A reference to the identified (poly)peptide sequence in the Peptide element.
 	 */
@@ -66,13 +72,13 @@ public class SpectrumIdentificationItem extends Identifiable {
 	 * For PMF data, the rank attribute may be meaningless and values of rank = 0 should be given.
 	 */
 	@XmlAttribute(name = "rank", required = true)
-	private int rank;
+	private Integer rank;
 	/**
 	 * Set to true if the producers of the file has deemed that the identification has passed a given threshold or been validated as correct.
 	 * If no such threshold has been set, value of true should be given for all results.
 	 */
 	@XmlAttribute(name = "passThreshold", required = true)
-	private boolean passThreshold;
+	private Boolean passThreshold;
 	/**
 	 * A reference should be given to the MassTable used to calculate the sequenceMass only if more than one MassTable has been given.
 	 */
@@ -100,43 +106,43 @@ public class SpectrumIdentificationItem extends Identifiable {
 		this.fragmentation = fragmentation;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
-	public int getChargeState() {
+	public Integer getChargeState() {
 		return chargeState;
 	}
 
-	public void setChargeState(int chargeState) {
+	public void setChargeState(Integer chargeState) {
 		this.chargeState = chargeState;
 	}
 
-	public double getExperimentalMassToCharge() {
+	public Double getExperimentalMassToCharge() {
 		return experimentalMassToCharge;
 	}
 
-	public void setExperimentalMassToCharge(double experimentalMassToCharge) {
+	public void setExperimentalMassToCharge(Double experimentalMassToCharge) {
 		this.experimentalMassToCharge = experimentalMassToCharge;
 	}
 
-	public double getCalculatedMassToCharge() {
+	public Double getCalculatedMassToCharge() {
 		return calculatedMassToCharge;
 	}
 
-	public void setCalculatedMassToCharge(double calculatedMassToCharge) {
+	public void setCalculatedMassToCharge(Double calculatedMassToCharge) {
 		this.calculatedMassToCharge = calculatedMassToCharge;
 	}
 
-	public float getCalculatedPI() {
+	public Float getCalculatedPI() {
 		return calculatedPI;
 	}
 
-	public void setCalculatedPI(float calculatedPI) {
+	public void setCalculatedPI(Float calculatedPI) {
 		this.calculatedPI = calculatedPI;
 	}
 
@@ -148,19 +154,19 @@ public class SpectrumIdentificationItem extends Identifiable {
 		this.peptide_ref = peptide_ref;
 	}
 
-	public int getRank() {
+	public Integer getRank() {
 		return rank;
 	}
 
-	public void setRank(int rank) {
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
 
-	public boolean isPassThreshold() {
+	public Boolean getPassThreshold() {
 		return passThreshold;
 	}
 
-	public void setPassThreshold(boolean passThreshold) {
+	public void setPassThreshold(Boolean passThreshold) {
 		this.passThreshold = passThreshold;
 	}
 

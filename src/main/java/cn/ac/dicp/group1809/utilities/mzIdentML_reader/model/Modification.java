@@ -1,6 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,14 +17,15 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "ModificationType", propOrder = {
 		"cvParam",
 		"location",
 		"residues",
 		"avgMassDelta",
 		"monoisotopicMassDelta"
 })
-public class Modification {
+public class Modification implements Serializable {
+	private static final long serialVersionUID = 3728862379768008150L;
 	/**
 	 * CV terms capturing the modification, sourced from an appropriate controlled vocabulary.
 	 */
@@ -36,7 +38,7 @@ public class Modification {
 	 * If the modification location is unknown e.g. for PMF data, this attribute should be omitted.
 	 */
 	@XmlAttribute(name = "location")
-	private int location;
+	private Integer location;
 	/**
 	 * Specification of the residue (amino acid) on which the modification occurs.
 	 * If multiple values are given, it is assumed that the exact residue modified is unknown i.e. the modification is to ONE of the residues listed.
@@ -48,12 +50,12 @@ public class Modification {
 	 * Atomic mass delta considering the natural distribution of isotopes in Daltons.
 	 */
 	@XmlAttribute(name = "avgMassDelta")
-	private double avgMassDelta;
+	private Double avgMassDelta;
 	/**
 	 * Atomic mass delta when assuming only the most common isotope of elements in Daltons.
 	 */
 	@XmlAttribute(name = "monoisotopicMassDelta")
-	private double monoisotopicMassDelta;
+	private Double monoisotopicMassDelta;
 
 	public List<CVParam> getCvParam() {
 		return cvParam;
@@ -63,11 +65,11 @@ public class Modification {
 		this.cvParam = cvParam;
 	}
 
-	public int getLocation() {
+	public Integer getLocation() {
 		return location;
 	}
 
-	public void setLocation(int location) {
+	public void setLocation(Integer location) {
 		this.location = location;
 	}
 
@@ -82,19 +84,19 @@ public class Modification {
 		this.residues = residues;
 	}
 
-	public double getAvgMassDelta() {
+	public Double getAvgMassDelta() {
 		return avgMassDelta;
 	}
 
-	public void setAvgMassDelta(double avgMassDelta) {
+	public void setAvgMassDelta(Double avgMassDelta) {
 		this.avgMassDelta = avgMassDelta;
 	}
 
-	public double getMonoisotopicMassDelta() {
+	public Double getMonoisotopicMassDelta() {
 		return monoisotopicMassDelta;
 	}
 
-	public void setMonoisotopicMassDelta(double monoisotopicMassDelta) {
+	public void setMonoisotopicMassDelta(Double monoisotopicMassDelta) {
 		this.monoisotopicMassDelta = monoisotopicMassDelta;
 	}
 }

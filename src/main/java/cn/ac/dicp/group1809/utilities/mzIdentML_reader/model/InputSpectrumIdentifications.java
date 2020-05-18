@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * The lists of spectrum identifications that are input to the protein detection process.
@@ -11,7 +13,11 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class InputSpectrumIdentifications {
+@XmlType(name = "InputSpectrumIdentificationsType",propOrder = {
+		"spectrumIdentificationList_ref"
+})
+public class InputSpectrumIdentifications implements Serializable {
+	private static final long serialVersionUID = 951158834007646644L;
 	/**
 	 * A reference to the list of spectrum identifications that were input to the process.
 	 */

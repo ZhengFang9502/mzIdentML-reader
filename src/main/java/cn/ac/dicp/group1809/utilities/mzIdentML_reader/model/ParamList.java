@@ -1,28 +1,30 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
  * Helper type to allow multiple cvParams or userParams to be given for an element.
  *
- * @author ZhengFang 2018/9/18
- * @since V1.0
+ * @author Zheng Fang 2020/5/18
+ * @since V1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
-		"paramGroupList"
+@XmlType(name = "ParamListType", propOrder = {
+		"paramGroup"
 })
 public class ParamList {
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 }

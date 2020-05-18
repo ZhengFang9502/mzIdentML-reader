@@ -3,8 +3,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Filter;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Param;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParamList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -14,13 +12,9 @@ import javax.xml.stream.XMLStreamReader;
  * @since V1.0
  */
 public class FilterReader {
-	private static Logger logger = LoggerFactory.getLogger(FilterReader.class);
-
 	public static Filter read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
-
 		Filter filter = new Filter();
-
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -42,7 +36,6 @@ public class FilterReader {
 							filter.setExclude(exclude);
 							break;
 						default:
-							logger.error("Invalid local name in Filter section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Filter section: " + localName);
 					}
 					break;

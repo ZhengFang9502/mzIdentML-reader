@@ -4,8 +4,6 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.DBSequence;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Peptide;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.PeptideEvidence;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SequenceCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -18,8 +16,6 @@ import java.util.List;
  * @since V1.0
  */
 public class SequenceCollectionReader {
-	private static Logger logger = LoggerFactory.getLogger(SequenceCollectionReader.class);
-
 	public static SequenceCollection read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -49,7 +45,6 @@ public class SequenceCollectionReader {
 							peptideEvidences.add(peptideEvidence);
 							break;
 						default:
-							logger.error("Invalid local name in SequenceCollection section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SequenceCollection section: " + localName);
 					}
 					break;

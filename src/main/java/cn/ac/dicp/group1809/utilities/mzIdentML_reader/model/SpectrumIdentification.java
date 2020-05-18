@@ -9,14 +9,15 @@ import java.util.List;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlType(name = "SpectrumIdentification",propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SpectrumIdentificationType", propOrder = {
 		"inputSpectra",
 		"searchDatabaseRef",
 		"spectrumIdentificationProtocol_ref",
 		"spectrumIdentificationList_ref"
 })
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SpectrumIdentification extends ProtocolApplication {
+	private static final long serialVersionUID = 4331875144681178651L;
 	/**
 	 * One of the spectra data sets used.
 	 */
@@ -27,12 +28,12 @@ public class SpectrumIdentification extends ProtocolApplication {
 	/**
 	 * A reference to the search protocol used for this SpectrumIdentification.
 	 */
-	@XmlAttribute(name = "spectrumIdentificationProtocol_ref",required = true)
+	@XmlAttribute(name = "spectrumIdentificationProtocol_ref", required = true)
 	private String spectrumIdentificationProtocol_ref;
 	/**
 	 * A reference to the SpectrumIdentificationList produced by this analysis in the DataCollection section.
 	 */
-	@XmlAttribute(name = "spectrumIdentificationList_ref",required = true)
+	@XmlAttribute(name = "spectrumIdentificationList_ref", required = true)
 	private String spectrumIdentificationList_ref;
 
 	public List<InputSpectra> getInputSpectra() {

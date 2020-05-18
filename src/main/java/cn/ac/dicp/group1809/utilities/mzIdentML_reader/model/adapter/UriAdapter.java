@@ -16,6 +16,9 @@ public class UriAdapter extends XmlAdapter<String, URI> {
 
 	@Override
 	public String marshal(URI v) {
+		if (v == null) {
+			return null;
+		}
 		return v.toString();
 	}
 }

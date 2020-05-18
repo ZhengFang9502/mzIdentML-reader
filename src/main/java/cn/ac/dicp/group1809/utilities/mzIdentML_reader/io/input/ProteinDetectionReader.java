@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.InputSpectrumIdentifications;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProteinDetection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -17,8 +15,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ProteinDetectionReader {
-	private static Logger logger = LoggerFactory.getLogger(ProteinDetectionReader.class);
-
 	public static ProteinDetection read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		ProteinDetection proteinDetection = new ProteinDetection();
@@ -37,7 +33,6 @@ public class ProteinDetectionReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in ProteinDetection section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in ProteinDetection section: " + attributeName);
 			}
 		}
@@ -55,7 +50,6 @@ public class ProteinDetectionReader {
 						InputSpectrumIdentifications spectrumIdentifications = InputSpectrumIdentificationsReader.read(reader);
 						inputSpectrumIdentifications.add(spectrumIdentifications);
 					} else {
-						logger.error("Invalid local name in ProteinDetection section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in ProteinDetection section: " + localName);
 					}
 					break;

@@ -1,11 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Param;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,8 +11,6 @@ import javax.xml.stream.XMLStreamReader;
  * @since V1.0
  */
 public class ParamReader {
-	private static Logger logger = LoggerFactory.getLogger(ParamReader.class);
-
 	public static Param read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		Param param = new Param();
@@ -29,15 +23,11 @@ public class ParamReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							param.setParamGroup(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							param.setParamGroup(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							param.setParamGroup(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in Param section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Param section: " + localName);
 					}
 					break;

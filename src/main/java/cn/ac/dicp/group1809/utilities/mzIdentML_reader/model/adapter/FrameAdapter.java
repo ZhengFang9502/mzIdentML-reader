@@ -16,6 +16,9 @@ public class FrameAdapter extends XmlAdapter<Integer, AllowedFrame> {
 
 	@Override
 	public Integer marshal(AllowedFrame v) {
+		if (v == null) {
+			return null;
+		}
 		return v.getFrame();
 	}
 }

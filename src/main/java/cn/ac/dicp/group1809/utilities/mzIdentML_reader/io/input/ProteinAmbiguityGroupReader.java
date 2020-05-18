@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProteinAmbiguityGroup;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProteinDetectionHypothesis;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -15,8 +15,6 @@ import java.util.List;
  * @since V1.0
  */
 public class ProteinAmbiguityGroupReader {
-	private static Logger logger = LoggerFactory.getLogger(ProteinAmbiguityGroupReader.class);
-
 	public static ProteinAmbiguityGroup read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -25,7 +23,7 @@ public class ProteinAmbiguityGroupReader {
 		IdentifiableReader.read(reader, proteinAmbiguityGroup);
 
 		List<ProteinDetectionHypothesis> proteinDetectionHypotheses = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -40,15 +38,11 @@ public class ProteinAmbiguityGroupReader {
 							proteinDetectionHypotheses.add(proteinDetectionHypothesis);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in ProteinAmbiguityGroup section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in ProteinAmbiguityGroup section: " + localName);
 					}
 					break;
@@ -59,7 +53,7 @@ public class ProteinAmbiguityGroupReader {
 					}
 			}
 		}
-		proteinAmbiguityGroup.setParamGroupList(paramGroups);
+		proteinAmbiguityGroup.setParamGroup(paramGroup);
 		proteinAmbiguityGroup.setProteinDetectionHypothesis(proteinDetectionHypotheses);
 		return proteinAmbiguityGroup;
 	}

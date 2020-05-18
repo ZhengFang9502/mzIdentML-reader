@@ -10,12 +10,13 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ProteinDetection", propOrder = {
+@XmlType(name = "ProteinDetectionType", propOrder = {
 		"inputSpectrumIdentifications",
 		"proteinDetectionList_ref",
 		"proteinDetectionProtocol_ref"
 })
 public class ProteinDetection extends ProtocolApplication {
+	private static final long serialVersionUID = -8544530356275201559L;
 	@XmlElement(name = "InputSpectrumIdentifications")
 	private List<InputSpectrumIdentifications> inputSpectrumIdentifications;
 	/**

@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Residue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
@@ -12,8 +10,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ResidueReader {
-	private static Logger logger = LoggerFactory.getLogger(ResidueReader.class);
-
 	public static Residue read(XMLStreamReader reader) {
 		Residue residue = new Residue();
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
@@ -27,7 +23,6 @@ public class ResidueReader {
 					residue.setMass(Float.valueOf(attributeValue));
 					break;
 				default:
-					logger.error("Invalid attribute name in Residue section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in Residue section: " + attributeName);
 			}
 		}

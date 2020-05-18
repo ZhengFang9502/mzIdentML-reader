@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.BibliographicReference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
@@ -12,8 +10,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class BibliographicReferenceReader {
-	private static Logger logger = LoggerFactory.getLogger(BibliographicReferenceReader.class);
-
 	public static BibliographicReference read(XMLStreamReader reader) {
 		BibliographicReference bibliographicReference = new BibliographicReference();
 		IdentifiableReader.read(reader, bibliographicReference);
@@ -55,7 +51,6 @@ public class BibliographicReferenceReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in BibliographicReference section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in BibliographicReference section: " + attributeName);
 			}
 		}

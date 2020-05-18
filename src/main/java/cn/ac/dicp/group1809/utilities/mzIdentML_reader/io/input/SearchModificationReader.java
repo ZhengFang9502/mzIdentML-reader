@@ -3,8 +3,7 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SearchModification;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpecificityRules;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import sun.plugin2.os.windows.FLASHWINFO;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -18,8 +17,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SearchModificationReader {
-	private static Logger logger = LoggerFactory.getLogger(SearchModificationReader.class);
-
 	public static SearchModification read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		SearchModification searchModification = new SearchModification();
@@ -28,16 +25,15 @@ public class SearchModificationReader {
 			String attributeValue = attributes.get(attributeName);
 			switch (attributeName) {
 				case "fixedMod":
-					searchModification.setFixedMod(attributeValue.equals("true"));
+					searchModification.setFixedMod(Boolean.valueOf(attributeValue));
 					break;
 				case "massDelta":
-					searchModification.setMassDelta(Double.valueOf(attributeValue));
+					searchModification.setMassDelta(Float.valueOf(attributeValue));
 					break;
 				case "residues":
 					searchModification.setResidues(attributeValue);
 					break;
 				default:
-					logger.error("Invalid attribute name in SearchModification section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in SearchModification section: " + attributeName);
 			}
 		}
@@ -62,7 +58,6 @@ public class SearchModificationReader {
 							cvParams.add(cvParam);
 							break;
 						default:
-							logger.error("Invalid local name in SearchModification section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SearchModification section: " + localName);
 					}
 					break;

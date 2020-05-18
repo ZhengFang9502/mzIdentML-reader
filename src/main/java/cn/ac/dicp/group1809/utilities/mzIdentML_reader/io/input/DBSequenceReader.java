@@ -2,9 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.DBSequence;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -17,12 +14,10 @@ import java.util.Map;
  * @since V1.0
  */
 public class DBSequenceReader {
-	private static Logger logger = LoggerFactory.getLogger(DBSequenceReader.class);
 
 	public static DBSequence read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		DBSequence dbSequence = new DBSequence();
-		List<AbstractParam> paramGroupList = new ArrayList<>();
 		IdentifiableReader.read(reader, dbSequence);
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
 		for (String attributeName : attributes.keySet()) {
@@ -41,11 +36,11 @@ public class DBSequenceReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in DBSequence section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in DBSequence section: " + attributeName);
 			}
 		}
 
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -59,15 +54,11 @@ public class DBSequenceReader {
 							dbSequence.setSeq(seq);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroupList.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroupList.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in DBSequence section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in DBSequence section: " + localName);
 					}
 					break;
@@ -79,7 +70,7 @@ public class DBSequenceReader {
 					break;
 			}
 		}
-		dbSequence.setParamGroupList(paramGroupList);
+		dbSequence.setParamGroup(paramGroup);
 		return dbSequence;
 	}
 }

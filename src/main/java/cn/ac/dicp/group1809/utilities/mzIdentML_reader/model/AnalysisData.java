@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +14,9 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AnalysisData {
+@XmlType(name = "AnalysisDataType")
+public class AnalysisData implements Serializable {
+	private static final long serialVersionUID = 5929369097177983134L;
 	@XmlElement(name = "SpectrumIdentificationList")
 	private List<SpectrumIdentificationList> spectrumIdentificationList;
 	@XmlElement(name = "ProteinDetectionList")

@@ -4,8 +4,6 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FragmentArray;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.IonType;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -19,7 +17,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class IonTypeReader {
-	private static Logger logger = LoggerFactory.getLogger(IonTypeReader.class);
 
 	public static IonType read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -40,7 +37,6 @@ public class IonTypeReader {
 					ionType.setCharge(Integer.valueOf(attributeValue));
 					break;
 				default:
-					logger.error("Invalid attribute name in IonType section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in IonType section: " + attributeName);
 			}
 		}
@@ -69,7 +65,6 @@ public class IonTypeReader {
 							cvParams.add(cvParam);
 							break;
 						default:
-							logger.error("Invalid local name in IonType section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in IonType section: " + localName);
 					}
 					break;

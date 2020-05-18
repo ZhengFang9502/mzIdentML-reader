@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CV;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.net.URI;
@@ -14,8 +12,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class CVReader {
-	private static Logger logger = LoggerFactory.getLogger(CVReader.class);
-
 	public static CV read(XMLStreamReader reader) {
 		CV cv = new CV();
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
@@ -36,7 +32,6 @@ public class CVReader {
 					cv.setId(attributeValue);
 					break;
 				default:
-					logger.error("Invalid attribute name in cv section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in cv section: " + attributeName);
 			}
 		}

@@ -2,10 +2,7 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.FrameAdapter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
@@ -17,8 +14,8 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
-		"paramGroupList",
+@XmlType(name = "PeptideEvidenceType", propOrder = {
+		"paramGroup",
 		"dBSequence_ref",
 		"peptide_ref",
 		"start",
@@ -30,68 +27,73 @@ import java.util.List;
 		"isDecoy"
 })
 public class PeptideEvidence extends Identifiable {
+	private static final long serialVersionUID = 3289213395474189880L;
 	/**
 	 * Additional parameters or descriptors for the PeptideEvidence.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
 	/**
 	 * A reference to the protein sequence in which the specified peptide has been linked.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "dBSequence_ref", required = true)
 	private String dBSequence_ref;
 	/**
 	 * A reference to the identified (poly)peptide sequence in the Peptide element.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "peptide_ref", required = true)
 	private String peptide_ref;
 
 	/**
 	 * Start position of the peptide inside the protein sequence, where the first amino acid of the protein sequence is position 1.
 	 * Must be provided unless this is a de novo search.
 	 */
-	@XmlAttribute
-	private int start;
+	@XmlAttribute(name = "start")
+	private Integer start;
 	/**
 	 * The index position of the last amino acid of the peptide inside the protein sequence, where the first amino acid of the protein sequence is position 1.
 	 * Must be provided unless this is a de novo search.
 	 */
-	@XmlAttribute
-	private int end;
+	@XmlAttribute(name = "end")
+	private Integer end;
 	/**
 	 * Previous flanking residue. If the peptide is N-terminal, pre="-" and not pre="".
 	 * If for any reason it is unknown (e.g. denovo), pre="?" should be used.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "pre")
 	private String pre;
 	/**
 	 * Post flanking residue. If the peptide is C-terminal, post="-" and not post="".
 	 * If for any reason it is unknown (e.g. denovo), post="?" should be used.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "post")
 	private String post;
 	/**
 	 * A reference to the translation table used if this is PeptideEvidence derived from nucleic acid sequence
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "translationTable_ref")
 	private String translationTable_ref;
 	/**
 	 * The translation frame of this sequence if this is PeptideEvidence derived from nucleic acid sequence
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "frame")
 	@XmlJavaTypeAdapter(FrameAdapter.class)
 	private AllowedFrame frame;
 	/**
 	 * Set to true if the peptide is matched to a decoy sequence.
 	 */
-	@XmlAttribute
-	private boolean isDecoy;
+	@XmlAttribute(name = "isDecoy")
+	private Boolean isDecoy;
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
 	public String getdBSequence_ref() {
@@ -110,19 +112,19 @@ public class PeptideEvidence extends Identifiable {
 		this.peptide_ref = peptide_ref;
 	}
 
-	public int getStart() {
+	public Integer getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart(Integer start) {
 		this.start = start;
 	}
 
-	public int getEnd() {
+	public Integer getEnd() {
 		return end;
 	}
 
-	public void setEnd(int end) {
+	public void setEnd(Integer end) {
 		this.end = end;
 	}
 
@@ -166,11 +168,11 @@ public class PeptideEvidence extends Identifiable {
 		this.frame = frame;
 	}
 
-	public boolean isDecoy() {
+	public Boolean getDecoy() {
 		return isDecoy;
 	}
 
-	public void setDecoy(boolean decoy) {
+	public void setDecoy(Boolean decoy) {
 		isDecoy = decoy;
 	}
 }

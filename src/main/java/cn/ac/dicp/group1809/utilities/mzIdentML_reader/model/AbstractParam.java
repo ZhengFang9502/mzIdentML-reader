@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * Abstract entity allowing either cvParam or userParam to be referenced in other schemas.
@@ -12,38 +13,39 @@ import javax.xml.bind.annotation.XmlType;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AbstractParam", propOrder = {
+@XmlType(name = "AbstractParamType", propOrder = {
 		"name",
 		"value",
 		"unitAccession",
 		"unitName",
 		"unitCvRef"
 })
-public abstract class AbstractParam {
+public abstract class AbstractParam implements Serializable {
+	private static final long serialVersionUID = 3045468801118972443L;
 	/**
 	 * The name of the parameter.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "name", required = true)
 	private String name;
 	/**
 	 * The user-entered value of the parameter.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "value")
 	private String value;
 	/**
 	 * An accession number identifying the unit within the OBO foundry Unit CV.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "unitAccession")
 	private String unitAccession;
 	/**
 	 * The name of the unit.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "unitName")
 	private String unitName;
 	/**
 	 * If a unit term is referenced, this attribute must refer to the CV 'id' attribute defined in the cvList in this file.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "unitCvRef")
 	private String unitCvRef;
 
 	public String getName() {

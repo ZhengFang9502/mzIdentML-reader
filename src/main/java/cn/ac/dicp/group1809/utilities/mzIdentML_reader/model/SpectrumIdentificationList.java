@@ -9,14 +9,15 @@ import java.util.List;
  * @author ZhengFang 2018/9/19
  * @since V1.0
  */
-@XmlType(propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SpectrumIdentificationListType", propOrder = {
 		"fragmentationTable",
 		"spectrumIdentificationResult",
-		"paramGroupList",
+		"paramGroup",
 		"numSequencesSearched"
 })
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SpectrumIdentificationList extends Identifiable {
+	private static final long serialVersionUID = 3416186788646105454L;
 	@XmlElement(name = "FragmentationTable")
 	private FragmentationTable fragmentationTable;
 	@XmlElement(name = "SpectrumIdentificationResult")
@@ -24,7 +25,12 @@ public class SpectrumIdentificationList extends Identifiable {
 	/**
 	 * Scores or output parameters associated with the SpectrumIdentificationList.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
+
 	/**
 	 * The number of database sequences searched against.
 	 * This value should be provided unless a de novo search has been performed.
@@ -48,12 +54,12 @@ public class SpectrumIdentificationList extends Identifiable {
 		this.spectrumIdentificationResult = spectrumIdentificationResult;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 
 	public long getNumSequencesSearched() {

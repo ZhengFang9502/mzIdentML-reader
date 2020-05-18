@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.PeptideHypothesis;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ProteinDetectionHypothesis;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +16,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ProteinDetectionHypothesisReader {
-	private static Logger logger = LoggerFactory.getLogger(ProteinDetectionHypothesisReader.class);
-
 	public static ProteinDetectionHypothesis read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		ProteinDetectionHypothesis proteinDetectionHypothesis = new ProteinDetectionHypothesis();
@@ -36,13 +34,12 @@ public class ProteinDetectionHypothesisReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in ProteinDetectionHypothesis section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in ProteinDetectionHypothesis section: " + attributeName);
 			}
 		}
 
 		List<PeptideHypothesis> peptideHypotheses = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -57,15 +54,11 @@ public class ProteinDetectionHypothesisReader {
 							peptideHypotheses.add(peptideHypothesis);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in ProteinDetectionHypothesis section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in ProteinDetectionHypothesis section: " + localName);
 					}
 					break;
@@ -77,7 +70,7 @@ public class ProteinDetectionHypothesisReader {
 			}
 		}
 		proteinDetectionHypothesis.setPeptideHypothesis(peptideHypotheses);
-		proteinDetectionHypothesis.setParamGroupList(paramGroups);
+		proteinDetectionHypothesis.setParamGroup(paramGroup);
 		return proteinDetectionHypothesis;
 	}
 }

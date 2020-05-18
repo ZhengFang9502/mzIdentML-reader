@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIDFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -14,8 +12,6 @@ import javax.xml.stream.XMLStreamReader;
  * @since V1.0
  */
 public class SpectrumIDFormatReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectrumIDFormatReader.class);
-
 	public static SpectrumIDFormat read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		SpectrumIDFormat spectrumIDFormat = new SpectrumIDFormat();
@@ -30,7 +26,6 @@ public class SpectrumIDFormatReader {
 						CVParam cvParam = CVParamReader.read(reader);
 						spectrumIDFormat.setCvParam(cvParam);
 					} else {
-						logger.error("Invalid local name in SpectrumIDFormat section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in SpectrumIDFormat section: " + localName);
 					}
 					break;

@@ -2,10 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AmbiguousResidue;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -18,8 +14,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class AmbiguousResidueReader {
-	private static Logger logger = LoggerFactory.getLogger(AmbiguousResidueReader.class);
-
 	public static AmbiguousResidue read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		AmbiguousResidue ambiguousResidue = new AmbiguousResidue();
@@ -30,11 +24,11 @@ public class AmbiguousResidueReader {
 			if ("code".equals(attributeName)) {
 				ambiguousResidue.setCode(attributeValue);
 			} else {
-				logger.error("Invalid attribute name in AmbiguousResidue section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in AmbiguousResidue section: " + attributeName);
 			}
 		}
-		List<AbstractParam> paramGroups = new ArrayList<>();
+
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -44,15 +38,11 @@ public class AmbiguousResidueReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in AmbiguousResidue section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in AmbiguousResidue section: " + localName);
 					}
 					break;
@@ -64,7 +54,7 @@ public class AmbiguousResidueReader {
 					break;
 			}
 		}
-		ambiguousResidue.setParamGroupList(paramGroups);
+		ambiguousResidue.setParamGroup(paramGroup);
 		return ambiguousResidue;
 	}
 }

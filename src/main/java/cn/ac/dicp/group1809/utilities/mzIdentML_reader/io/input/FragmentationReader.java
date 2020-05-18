@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Fragmentation;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.IonType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,7 +14,6 @@ import java.util.List;
  * @since V1.0
  */
 public class FragmentationReader {
-	private static Logger logger = LoggerFactory.getLogger(FragmentationReader.class);
 
 	public static Fragmentation read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -33,7 +30,6 @@ public class FragmentationReader {
 						IonType ionType = IonTypeReader.read(reader);
 						ionTypes.add(ionType);
 					} else {
-						logger.error("Invalid local name in Fragmentation section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in Fragmentation section: " + localName);
 					}
 					break;

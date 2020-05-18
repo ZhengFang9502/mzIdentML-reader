@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.*;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Enzyme", propOrder = {
+@XmlType(name = "EnzymeType", propOrder = {
 		"siteRegexp",
 		"enzymeName",
 		"nTermGain",
@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.*;
 		"minDistance",
 })
 public class Enzyme extends Identifiable {
+	private static final long serialVersionUID = -6527568851373771987L;
 	/**
 	 * Regular expression for specifying the enzyme cleavage site.
 	 */
@@ -43,17 +44,17 @@ public class Enzyme extends Identifiable {
 	 * Set to true if the enzyme cleaves semi-specifically (i.e. one terminus must cleave according to the rules, the other can cleave at any residue), false if the enzyme cleavage is assumed to be specific to both termini (accepting for any missed cleavages).
 	 */
 	@XmlAttribute(name = "semiSpecific")
-	private boolean semiSpecific;
+	private Boolean semiSpecific;
 	/**
 	 * The number of missed cleavage sites allowed by the search. The attribute must be provided if an enzyme has been used.
 	 */
 	@XmlAttribute(name = "missedCleavages")
-	private int missedCleavages;
+	private Integer missedCleavages;
 	/**
 	 * Minimal distance for another cleavage (minimum: 1).
 	 */
 	@XmlAttribute(name = "minDistance")
-	private int minDistance;
+	private Integer minDistance;
 
 	public String getSiteRegexp() {
 		return siteRegexp;
@@ -95,19 +96,19 @@ public class Enzyme extends Identifiable {
 		}
 	}
 
-	public boolean isSemiSpecific() {
+	public Boolean getSemiSpecific() {
 		return semiSpecific;
 	}
 
-	public void setSemiSpecific(boolean semiSpecific) {
+	public void setSemiSpecific(Boolean semiSpecific) {
 		this.semiSpecific = semiSpecific;
 	}
 
-	public int getMissedCleavages() {
+	public Integer getMissedCleavages() {
 		return missedCleavages;
 	}
 
-	public void setMissedCleavages(int missedCleavages) {
+	public void setMissedCleavages(Integer missedCleavages) {
 		this.missedCleavages = missedCleavages;
 	}
 
@@ -115,7 +116,7 @@ public class Enzyme extends Identifiable {
 		return minDistance;
 	}
 
-	public void setMinDistance(int minDistance) {
+	public void setMinDistance(Integer minDistance) {
 		if (minDistance >= 1) {
 			this.minDistance = minDistance;
 		} else {

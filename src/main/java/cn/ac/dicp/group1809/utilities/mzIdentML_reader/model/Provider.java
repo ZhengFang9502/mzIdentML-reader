@@ -1,9 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 /**
  * The provider of the document in terms of the Contact and the software the produced the document instance.
@@ -12,7 +10,12 @@ import javax.xml.bind.annotation.XmlElement;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Provider extends Identifiable {
+@XmlType(name = "ProviderType",propOrder = {
+		"contactRole",
+		"analysisSoftware_ref"
+})
+public class Provider extends Identifiable{
+	private static final long serialVersionUID = 7281018276100835176L;
 	/**
 	 * The Contact that provided the document instance.
 	 */
@@ -22,7 +25,7 @@ public class Provider extends Identifiable {
 	/**
 	 * The Software that produced the document instance.
 	 */
-	@XmlAttribute
+	@XmlAttribute(name = "analysisSoftware_ref")
 	private String analysisSoftware_ref;
 
 	public ContactRole getContactRole() {

@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * A modification where one residue is substituted by another (amino acid change).
@@ -12,23 +13,24 @@ import javax.xml.bind.annotation.XmlType;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "SubstitutionModificationType", propOrder = {
 		"originalResidue",
 		"replacementResidue",
 		"location",
 		"avgMassDelta",
 		"monoisotopicMassDelta"
 })
-public class SubstitutionModification {
+public class SubstitutionModification implements Serializable {
+	private static final long serialVersionUID = 8114785682682158484L;
 	/**
 	 * The original residue before replacement.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "originalResidue", required = true)
 	private String originalResidue;
 	/**
 	 * The residue that replaced the originalResidue.
 	 */
-	@XmlAttribute(required = true)
+	@XmlAttribute(name = "replacementResidue", required = true)
 	private String replacementResidue;
 
 	/**
@@ -36,22 +38,22 @@ public class SubstitutionModification {
 	 * Specific modifications to the N-terminus should be given the location 0.
 	 * Modification to the C-terminus should be given as peptide length + 1.
 	 */
-	@XmlAttribute
-	private int location;
+	@XmlAttribute(name = "location")
+	private Integer location;
 
 	/**
 	 * Atomic mass delta considering the natural distribution of isotopes in Daltons.
 	 * This should only be reported if the original amino acid is known i.e. it is not "X"
 	 */
-	@XmlAttribute
-	private double avgMassDelta;
+	@XmlAttribute(name = "avgMassDelta")
+	private Double avgMassDelta;
 
 	/**
 	 * Atomic mass delta when assuming only the most common isotope of elements in Daltons.
 	 * This should only be reported if the original amino acid is known i.e. it is not "X"
 	 */
-	@XmlAttribute
-	private double monoisotopicMassDelta;
+	@XmlAttribute(name = "monoisotopicMassDelta")
+	private Double monoisotopicMassDelta;
 
 
 	public String getOriginalResidue() {
@@ -76,27 +78,27 @@ public class SubstitutionModification {
 		this.replacementResidue = replacementResidue;
 	}
 
-	public int getLocation() {
+	public Integer getLocation() {
 		return location;
 	}
 
-	public void setLocation(int location) {
+	public void setLocation(Integer location) {
 		this.location = location;
 	}
 
-	public double getAvgMassDelta() {
+	public Double getAvgMassDelta() {
 		return avgMassDelta;
 	}
 
-	public void setAvgMassDelta(double avgMassDelta) {
+	public void setAvgMassDelta(Double avgMassDelta) {
 		this.avgMassDelta = avgMassDelta;
 	}
 
-	public double getMonoisotopicMassDelta() {
+	public Double getMonoisotopicMassDelta() {
 		return monoisotopicMassDelta;
 	}
 
-	public void setMonoisotopicMassDelta(double monoisotopicMassDelta) {
+	public void setMonoisotopicMassDelta(Double monoisotopicMassDelta) {
 		this.monoisotopicMassDelta = monoisotopicMassDelta;
 	}
 }

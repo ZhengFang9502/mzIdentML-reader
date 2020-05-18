@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,12 +13,13 @@ import java.util.List;
  * @author ZhengFang 2018/9/19
  * @since V1.0
  */
-@XmlType(propOrder = {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "FragmentArrayType", propOrder = {
 		"values",
 		"measure_ref"
 })
-@XmlAccessorType(XmlAccessType.FIELD)
-public class FragmentArray {
+public class FragmentArray implements Serializable {
+	private static final long serialVersionUID = -2258725675555838447L;
 	/**
 	 * The values of this particular measure, corresponding to the index defined in ion type
 	 */
@@ -26,7 +28,7 @@ public class FragmentArray {
 	/**
 	 * A reference to the Measure defined in the FragmentationTable
 	 */
-	@XmlAttribute(name = "measure_ref",required = true)
+	@XmlAttribute(name = "measure_ref", required = true)
 	private String measure_ref;
 
 	public List<Float> getValues() {

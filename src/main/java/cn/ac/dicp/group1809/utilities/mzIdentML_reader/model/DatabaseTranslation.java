@@ -1,9 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +11,12 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DatabaseTranslation {
+@XmlType(name = "DatabaseTranslationType", propOrder = {
+		"translationTable",
+		"frames"
+})
+public class DatabaseTranslation implements Serializable {
+	private static final long serialVersionUID = -106225460578962988L;
 	@XmlElement(name = "TranslationTable")
 	private List<TranslationTable> translationTable;
 	/**

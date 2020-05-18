@@ -3,6 +3,8 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * Reference to the PeptideEvidence element identified.
@@ -12,7 +14,11 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PeptideEvidenceRef {
+@XmlType(name = "PeptideEvidenceRefType",propOrder = {
+		"peptideEvidence_ref"
+})
+public class PeptideEvidenceRef implements Serializable {
+	private static final long serialVersionUID = 643988991503120766L;
 	/**
 	 * A reference to the PeptideEvidenceItem element(s).
 	 */

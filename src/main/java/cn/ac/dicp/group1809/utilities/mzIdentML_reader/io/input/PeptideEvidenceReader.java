@@ -1,8 +1,8 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AllowedFrame;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.PeptideEvidence;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,11 +15,8 @@ import java.util.Map;
  * @since V1.0
  */
 public class PeptideEvidenceReader {
-	private static Logger logger = LoggerFactory.getLogger(PeptideEvidenceReader.class);
-
 	public static PeptideEvidence read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
-
 		PeptideEvidence peptideEvidence = new PeptideEvidence();
 		IdentifiableReader.read(reader, peptideEvidence);
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
@@ -51,19 +48,17 @@ public class PeptideEvidenceReader {
 					peptideEvidence.setFrame(AllowedFrame.forAllowedFrame(Integer.valueOf(attributeValue)));
 					break;
 				case "isDecoy":
-					peptideEvidence.setDecoy(attributeValue.equals("true"));
+					peptideEvidence.setDecoy(Boolean.valueOf(attributeValue));
 					break;
 				case "id":
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in PeptideEvidence section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in PeptideEvidence section: " + attributeName);
 			}
 		}
 
-		List<AbstractParam> paramGroups = new ArrayList<>();
-
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -73,15 +68,11 @@ public class PeptideEvidenceReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in PeptideEvidence section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in PeptideEvidence section: " + localName);
 					}
 					break;
@@ -93,7 +84,7 @@ public class PeptideEvidenceReader {
 					break;
 			}
 		}
-		peptideEvidence.setParamGroupList(paramGroups);
+		peptideEvidence.setParamGroup(paramGroup);
 		return peptideEvidence;
 	}
 }

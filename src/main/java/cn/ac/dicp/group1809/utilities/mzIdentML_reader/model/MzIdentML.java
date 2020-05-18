@@ -1,14 +1,11 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.File;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,9 +14,8 @@ import java.util.List;
  * @author ZhengFang 2018/9/18
  * @since V1.0
  */
-@XmlRootElement(name = "MzIdentML")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "MzIdentMLType", propOrder = {
 		"cvList",
 		"analysisSoftwareList",
 		"provider",
@@ -30,10 +26,12 @@ import java.util.List;
 		"analysisProtocolCollection",
 		"dataCollection",
 		"bibliographicReference",
-		"creationDate",
-		"version"
+		"version",
+		"creationDate"
 })
-public class MzIdentML extends Identifiable {
+@XmlRootElement(name = "MzIdentML")
+public class MzIdentML extends Identifiable{
+	private static final long serialVersionUID = -9110348203822670278L;
 	@XmlElement(name = "cvList")
 	private CVList cvList;
 	@XmlElement(name = "AnalysisSoftwareList")
@@ -60,18 +58,19 @@ public class MzIdentML extends Identifiable {
 	 */
 	@XmlElement(name = "BibliographicReference")
 	private List<BibliographicReference> bibliographicReference;
+
 	/**
 	 * The date on which the file was produced.
 	 */
 	@XmlAttribute(name = "creationDate")
-	@XmlJavaTypeAdapter(DateAdapter.class)
-	private Date creationDate;
+	private String creationDate;
 	/**
 	 * The version of the schema this instance document refers to, in the format x.y.z.
 	 * Changes to z should not affect prevent instance documents from validating.
 	 */
-	@XmlAttribute(name = "version",required = true)
+	@XmlAttribute(name = "version", required = true)
 	private String version;
+
 
 	public CVList getCvList() {
 		return cvList;
@@ -153,11 +152,11 @@ public class MzIdentML extends Identifiable {
 		this.bibliographicReference = bibliographicReference;
 	}
 
-	public Date getCreationDate() {
+	public String getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -166,7 +165,7 @@ public class MzIdentML extends Identifiable {
 	}
 
 	public void setVersion(String version) {
-		if (version.matches("1\\.1\\.\\d+")) {
+		if (version.matches("\\d+\\.\\d+\\.\\d+")) {
 			this.version = version;
 		} else {
 			throw new IllegalArgumentException("Invalid version format: " + version);
@@ -182,6 +181,7 @@ public class MzIdentML extends Identifiable {
 		Marshaller marshaller = jaxbContext.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://psidev.info/psi/pi/mzIdentML/1.2 http://www.psidev.info/files/mzIdentML1.2.0.xsd");
 		marshaller.marshal(this, file);
 	}
 }

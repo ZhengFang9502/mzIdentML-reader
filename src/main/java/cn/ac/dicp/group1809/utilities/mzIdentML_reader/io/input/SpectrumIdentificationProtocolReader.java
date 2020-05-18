@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +14,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SpectrumIdentificationProtocolReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectrumIdentificationProtocolReader.class);
-
 	public static SpectrumIdentificationProtocol read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		SpectrumIdentificationProtocol spectrumIdentificationProtocol = new SpectrumIdentificationProtocol();
@@ -81,7 +77,6 @@ public class SpectrumIdentificationProtocolReader {
 							spectrumIdentificationProtocol.setDatabaseTranslation(databaseTranslation);
 							break;
 						default:
-							logger.error("Invalid local name in SpectrumIdentificationProtocol section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SpectrumIdentificationProtocol section: " + localName);
 					}
 					break;

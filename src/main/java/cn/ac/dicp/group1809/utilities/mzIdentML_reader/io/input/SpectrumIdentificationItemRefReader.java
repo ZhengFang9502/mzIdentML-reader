@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIdentificationItemRef;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
@@ -12,8 +10,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SpectrumIdentificationItemRefReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectrumIdentificationItemRefReader.class);
-
 	public static SpectrumIdentificationItemRef read(XMLStreamReader reader) {
 		SpectrumIdentificationItemRef spectrumIdentificationItemRef = new SpectrumIdentificationItemRef();
 
@@ -23,7 +19,6 @@ public class SpectrumIdentificationItemRefReader {
 			if ("spectrumIdentificationItem_ref".equals(attributeName)) {
 				spectrumIdentificationItemRef.setSpectrumIdentificationItem_ref(attributeValue);
 			} else {
-				logger.error("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
 				throw new IllegalArgumentException("Invalid attribute name in SpectrumIdentificationItemRef section: " + attributeName);
 			}
 		}

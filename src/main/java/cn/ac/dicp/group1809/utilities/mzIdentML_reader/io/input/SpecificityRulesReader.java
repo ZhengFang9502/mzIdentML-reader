@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpecificityRules;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +14,6 @@ import java.util.List;
  * @since V1.0
  */
 public class SpecificityRulesReader {
-	private static Logger logger = LoggerFactory.getLogger(SpecificityRulesReader.class);
-
 	public static SpecificityRules read(XMLStreamReader reader) throws XMLStreamException {
 		SpecificityRules specificityRules = new SpecificityRules();
 		String name = reader.getLocalName();
@@ -33,7 +29,6 @@ public class SpecificityRulesReader {
 						CVParam cvParam = CVParamReader.read(reader);
 						cvParams.add(cvParam);
 					} else {
-						logger.error("Invalid local name in SpecificityRules section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in SpecificityRules section: " + localName);
 					}
 					break;

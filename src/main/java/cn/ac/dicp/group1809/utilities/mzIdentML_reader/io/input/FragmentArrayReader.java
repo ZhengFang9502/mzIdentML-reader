@@ -1,8 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FragmentArray;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
@@ -14,8 +12,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class FragmentArrayReader {
-	private static Logger logger = LoggerFactory.getLogger(FragmentArrayReader.class);
-
 	public static FragmentArray read(XMLStreamReader reader) {
 		FragmentArray fragmentArray = new FragmentArray();
 		Map<String, String> attributes = AttributeReader.getAttributes(reader);
@@ -34,7 +30,6 @@ public class FragmentArrayReader {
 					fragmentArray.setMeasure_ref(attributeValue);
 					break;
 				default:
-					logger.error("Invalid attribute name in FragmentArray section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in FragmentArray section: " + attributeName);
 			}
 		}

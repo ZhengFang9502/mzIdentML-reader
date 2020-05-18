@@ -1,12 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * The use of a protocol with the requisite Parameters and ParameterValues.
@@ -16,19 +13,20 @@ import java.util.Date;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ProtocolApplicationType")
 public abstract class ProtocolApplication extends Identifiable {
+	private static final long serialVersionUID = 6532511753214538207L;
 	/**
 	 * When the protocol was applied.
 	 */
 	@XmlAttribute(name = "activityDate")
-	@XmlJavaTypeAdapter(DateAdapter.class)
-	private Date activityDate;
+	private String activityDate;
 
-	public Date getActivityDate() {
+	public String getActivityDate() {
 		return activityDate;
 	}
 
-	public void setActivityDate(Date activityDate) {
+	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
 	}
 }

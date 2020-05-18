@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Modification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -16,7 +14,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class ModificationReader {
-	private static Logger logger = LoggerFactory.getLogger(ModificationReader.class);
 
 	public static Modification read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -39,7 +36,6 @@ public class ModificationReader {
 					modification.setMonoisotopicMassDelta(Double.valueOf(attributeValue));
 					break;
 				default:
-					logger.error("Invalid attribute name in Modification section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in Modification section: " + attributeName);
 			}
 		}
@@ -55,7 +51,6 @@ public class ModificationReader {
 						CVParam cvParam = CVParamReader.read(reader);
 						cvParamList.add(cvParam);
 					} else {
-						logger.error("Invalid local name in Modification section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in Modification section: " + localName);
 					}
 					break;

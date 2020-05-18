@@ -1,6 +1,7 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,13 +11,17 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder ={
+@XmlType(name = "PeptideHypothesisType", propOrder = {
 		"spectrumIdentificationItemRef",
 		"peptideEvidence_ref"
 })
-public class PeptideHypothesis {
+public class PeptideHypothesis implements Serializable {
+	private static final long serialVersionUID = -7670506281137362296L;
 	@XmlElement(name = "SpectrumIdentificationItemRef")
 	private List<SpectrumIdentificationItemRef> spectrumIdentificationItemRef;
+	/**
+	 * A reference to the PeptideEvidence element on which this hypothesis is based.
+	 */
 	@XmlAttribute(name = "peptideEvidence_ref", required = true)
 	private String peptideEvidence_ref;
 

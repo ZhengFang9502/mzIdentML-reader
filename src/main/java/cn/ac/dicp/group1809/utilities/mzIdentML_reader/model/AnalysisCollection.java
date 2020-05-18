@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,11 +15,12 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AnalysisCollection",propOrder = {
+@XmlType(name = "AnalysisCollectionType", propOrder = {
 		"spectrumIdentification",
 		"proteinDetection"
 })
-public class AnalysisCollection {
+public class AnalysisCollection implements Serializable {
+	private static final long serialVersionUID = 7241068863163027000L;
 	@XmlElement(name = "SpectrumIdentification")
 	private List<SpectrumIdentification> spectrumIdentification;
 	@XmlElement(name = "ProteinDetection")

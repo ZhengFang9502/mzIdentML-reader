@@ -1,8 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Fragmentation;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.PeptideEvidenceRef;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIdentificationItem;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,8 +17,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SpectrumIdentificationItemReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectrumIdentificationItemReader.class);
-
 	public static SpectrumIdentificationItem read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -48,7 +47,7 @@ public class SpectrumIdentificationItemReader {
 					spectrumIdentificationItem.setRank(Integer.valueOf(attributeValue));
 					break;
 				case "passThreshold":
-					spectrumIdentificationItem.setPassThreshold(attributeValue.equals("true"));
+					spectrumIdentificationItem.setPassThreshold(Boolean.getBoolean(attributeValue));
 					break;
 				case "massTable_ref":
 					spectrumIdentificationItem.setMassTable_ref(attributeValue);
@@ -60,7 +59,7 @@ public class SpectrumIdentificationItemReader {
 		}
 
 		List<PeptideEvidenceRef> peptideEvidenceRefs = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 
 		String localName;
 		loop:
@@ -79,15 +78,11 @@ public class SpectrumIdentificationItemReader {
 							spectrumIdentificationItem.setFragmentation(fragmentation);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in SpectrumIdentificationItem section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SpectrumIdentificationItem section: " + localName);
 					}
 					break;
@@ -99,7 +94,7 @@ public class SpectrumIdentificationItemReader {
 			}
 		}
 		spectrumIdentificationItem.setPeptideEvidenceRef(peptideEvidenceRefs);
-		spectrumIdentificationItem.setParamGroupList(paramGroups);
+		spectrumIdentificationItem.setParamGroup(paramGroup);
 		return spectrumIdentificationItem;
 	}
 }

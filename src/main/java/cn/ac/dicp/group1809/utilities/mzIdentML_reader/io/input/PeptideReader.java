@@ -1,8 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Modification;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Peptide;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SubstitutionModification;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -15,7 +16,6 @@ import java.util.List;
  * @since V1.0
  */
 public class PeptideReader {
-	private static Logger logger = LoggerFactory.getLogger(PeptideReader.class);
 
 	public static Peptide read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -24,8 +24,7 @@ public class PeptideReader {
 
 		List<Modification> modifications = new ArrayList<>();
 		List<SubstitutionModification> substitutionModifications = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
-
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -47,15 +46,11 @@ public class PeptideReader {
 							substitutionModifications.add(substitutionModification);
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in Peptide section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in Peptide section: " + localName);
 					}
 					break;
@@ -68,7 +63,7 @@ public class PeptideReader {
 		}
 		peptide.setModification(modifications);
 		peptide.setSubstitutionModification(substitutionModifications);
-		peptide.setParamGroupList(paramGroups);
+		peptide.setParamGroup(paramGroup);
 		return peptide;
 	}
 }

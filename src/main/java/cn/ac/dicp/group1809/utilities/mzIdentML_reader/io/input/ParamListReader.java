@@ -1,30 +1,25 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.ParamList;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.UserParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ZhengFang 2018/9/20
- * @since V1.0
+ * @author Zheng Fang 2020/5/18
+ * @since V1.0.0
  */
 public class ParamListReader {
-	private static Logger logger = LoggerFactory.getLogger(ParamListReader.class);
-
 	public static ParamList read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		ParamList paramList = new ParamList();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
-		loop:
+		l1:
 		while (reader.hasNext()) {
 			int next = reader.next();
 			switch (next) {
@@ -32,27 +27,23 @@ public class ParamListReader {
 					localName = reader.getLocalName();
 					switch (localName) {
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in ParamList section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in ParamList section: " + localName);
 					}
 					break;
-				case XMLStreamReader.END_ELEMENT:
+				case XMLStreamConstants.END_ELEMENT:
 					localName = reader.getLocalName();
-					if (name.equals(localName)) {
-						break loop;
+					if (localName.equals(name)) {
+						break l1;
 					}
 					break;
 			}
 		}
-		paramList.setParamGroupList(paramGroups);
+		paramList.setParamGroup(paramGroup);
 		return paramList;
 	}
 }

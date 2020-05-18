@@ -4,15 +4,11 @@ import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FileFormat;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Param;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SearchDatabase;
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.DateAdapter;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.adapter.UriAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +18,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SearchDatabaseReader {
-	private static Logger logger = LoggerFactory.getLogger(SearchDatabaseReader.class);
-
 	public static SearchDatabase read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 
@@ -38,11 +32,7 @@ public class SearchDatabaseReader {
 					searchDatabase.setVersion(attributeValue);
 					break;
 				case "releaseDate":
-					try {
-						searchDatabase.setReleaseDate(new DateAdapter().unmarshal(attributeValue));
-					} catch (ParseException e) {
-						throw new IllegalArgumentException(e.getMessage());
-					}
+					searchDatabase.setReleaseDate(attributeValue);
 					break;
 				case "numDatabaseSequences":
 					searchDatabase.setNumDatabaseSequences(Long.valueOf(attributeValue));
@@ -55,7 +45,6 @@ public class SearchDatabaseReader {
 				case "location":
 					break;
 				default:
-					logger.error("Invalid attribute name in SearchDatabase section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in SearchDatabase section: " + attributeName);
 			}
 		}
@@ -86,7 +75,6 @@ public class SearchDatabaseReader {
 							cvParams.add(cvParam);
 							break;
 						default:
-							logger.error("Invalid local name in SearchDatabase section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SearchDatabase section: " + localName);
 					}
 					break;

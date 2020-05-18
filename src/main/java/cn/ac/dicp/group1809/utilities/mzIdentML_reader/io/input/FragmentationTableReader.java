@@ -2,8 +2,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.FragmentationTable;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Measure;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -16,7 +14,6 @@ import java.util.List;
  * @since V1.0
  */
 public class FragmentationTableReader {
-	private static Logger logger = LoggerFactory.getLogger(FragmentationTableReader.class);
 
 	public static FragmentationTable read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -33,7 +30,6 @@ public class FragmentationTableReader {
 						Measure measure = MeasureReader.read(reader);
 						measures.add(measure);
 					} else {
-						logger.error("Invalid local name in FragmentationTable section: " + localName);
 						throw new IllegalArgumentException("Invalid local name in FragmentationTable section: " + localName);
 					}
 					break;

@@ -3,8 +3,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.InputSpectra;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SearchDatabaseRef;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpectrumIdentification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -18,8 +16,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class SpectrumIdentificationReader {
-	private static Logger logger = LoggerFactory.getLogger(SpectrumIdentificationReader.class);
-
 	public static SpectrumIdentification read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
 		SpectrumIdentification spectrumIdentification = new SpectrumIdentification();
@@ -57,7 +53,6 @@ public class SpectrumIdentificationReader {
 							searchDatabaseRefs.add(searchDatabaseRef);
 							break;
 						default:
-							logger.error("Invalid local name in SpectrumIdentification section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in SpectrumIdentification section: " + localName);
 					}
 					break;

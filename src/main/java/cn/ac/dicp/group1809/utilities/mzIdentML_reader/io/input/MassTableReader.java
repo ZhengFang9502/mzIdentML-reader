@@ -1,8 +1,9 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 
-import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AbstractParam;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.AmbiguousResidue;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.MassTable;
+import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.Residue;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,7 +16,6 @@ import java.util.Map;
  * @since V1.0
  */
 public class MassTableReader {
-	private static Logger logger = LoggerFactory.getLogger(MassTableReader.class);
 
 	public static MassTable read(XMLStreamReader reader) throws XMLStreamException {
 		String name = reader.getLocalName();
@@ -41,14 +41,13 @@ public class MassTableReader {
 				case "name":
 					break;
 				default:
-					logger.error("Invalid attribute name in MassTable section: " + attributeName);
 					throw new IllegalArgumentException("Invalid attribute name in MassTable section: " + attributeName);
 			}
 		}
 
 		List<Residue> residues = new ArrayList<>();
 		List<AmbiguousResidue> ambiguousResidues = new ArrayList<>();
-		List<AbstractParam> paramGroups = new ArrayList<>();
+		List<AbstractParam> paramGroup = new ArrayList<>();
 		String localName;
 		loop:
 		while (reader.hasNext()) {
@@ -64,15 +63,11 @@ public class MassTableReader {
 							ambiguousResidues.add(AmbiguousResidueReader.read(reader));
 							break;
 						case "cvParam":
-							AbstractParam cvParam = ParamGroupReader.read(reader, new CVParam());
-							paramGroups.add(cvParam);
-							break;
 						case "userParam":
-							AbstractParam userParam = ParamGroupReader.read(reader, new UserParam());
-							paramGroups.add(userParam);
+							AbstractParam abstractParam = AbstractParamReader.read(reader);
+							paramGroup.add(abstractParam);
 							break;
 						default:
-							logger.error("Invalid local name in MassTable section: " + localName);
 							throw new IllegalArgumentException("Invalid local name in MassTable section: " + localName);
 					}
 					break;
@@ -86,7 +81,7 @@ public class MassTableReader {
 		}
 		massTable.setResidue(residues);
 		massTable.setAmbiguousResidue(ambiguousResidues);
-		massTable.setParamGroupList(paramGroups);
+		massTable.setParamGroup(paramGroup);
 		return massTable;
 	}
 }

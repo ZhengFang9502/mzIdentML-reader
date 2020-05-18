@@ -1,9 +1,6 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
@@ -13,17 +10,23 @@ import java.util.List;
  * @since V1.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
+@XmlType(name = "ProteinAmbiguityGroupType", propOrder = {
 		"proteinDetectionHypothesis",
-		"paramGroupList"
+		"paramGroup"
 })
 public class ProteinAmbiguityGroup extends Identifiable {
+	private static final long serialVersionUID = 2412547435595261762L;
 	@XmlElement(name = "ProteinDetectionHypothesis")
 	private List<ProteinDetectionHypothesis> proteinDetectionHypothesis;
+
 	/**
 	 * Scores or parameters associated with the ProteinAmbiguityGroup.
 	 */
-	private List<AbstractParam> paramGroupList;
+	@XmlElements(value = {
+			@XmlElement(name = "cvParam", type = CVParam.class),
+			@XmlElement(name = "userParam", type = UserParam.class)
+	})
+	private List<AbstractParam> paramGroup;
 
 	public List<ProteinDetectionHypothesis> getProteinDetectionHypothesis() {
 		return proteinDetectionHypothesis;
@@ -33,11 +36,11 @@ public class ProteinAmbiguityGroup extends Identifiable {
 		this.proteinDetectionHypothesis = proteinDetectionHypothesis;
 	}
 
-	public List<AbstractParam> getParamGroupList() {
-		return paramGroupList;
+	public List<AbstractParam> getParamGroup() {
+		return paramGroup;
 	}
 
-	public void setParamGroupList(List<AbstractParam> paramGroupList) {
-		this.paramGroupList = paramGroupList;
+	public void setParamGroup(List<AbstractParam> paramGroup) {
+		this.paramGroup = paramGroup;
 	}
 }
