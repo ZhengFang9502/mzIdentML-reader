@@ -1,7 +1,5 @@
 package cn.ac.dicp.group1809.utilities.mzIdentML_reader.model;
 
-import sun.plugin2.os.windows.FLASHWINFO;
-
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;

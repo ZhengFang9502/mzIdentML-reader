@@ -3,7 +3,6 @@ package cn.ac.dicp.group1809.utilities.mzIdentML_reader.io.input;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.CVParam;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SearchModification;
 import cn.ac.dicp.group1809.utilities.mzIdentML_reader.model.SpecificityRules;
-import sun.plugin2.os.windows.FLASHWINFO;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;

@@ -6,7 +6,7 @@
 
 	<groupId>cn.ac.dicp.group1809.utilities</groupId>
 	<artifactId>mzIdentML-reader</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<description>For mzIdentML format file reading.</description>
 
 	<developers>
